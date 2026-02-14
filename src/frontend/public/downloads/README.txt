@@ -24,16 +24,16 @@ you must rebuild your app from the Android wrapper project using the AAB build c
 ## How to Use
 
 1. **Place Your APK or AAB File Here**
-   - Copy your built APK file (e.g., app-release.apk) or AAB file (e.g., app-release-v20.aab) into this folder
+   - Copy your built APK file (e.g., app-release.apk) or AAB file (e.g., app-release-v22.aab) into this folder
    - The file will be automatically served as a static asset
 
 2. **Recommended Naming Convention**
    Use versioned naming to help users identify the correct version:
-   - For APK: strager-marketplace-v20.apk, strager-marketplace-v21.apk, etc.
-   - For AAB: app-release-v20.aab, app-release-v21.aab, etc.
+   - For APK: strager-marketplace-v21.apk, strager-marketplace-v22.apk, etc.
+   - For AAB: app-release-v21.aab, app-release-v22.aab, etc.
    
-   Note: The current default APK filename on /apk-download is strager-marketplace-v20.apk
-   Note: The current default AAB filename on /aab-download is app-release-v19.aab
+   Note: The current default APK filename on /apk-download is strager-marketplace-v21.apk
+   Note: The current default AAB filename on /aab-download is app-release-v22.aab
 
 3. **Public URL Format**
    Your files will be accessible at:
@@ -41,17 +41,17 @@ you must rebuild your app from the Android wrapper project using the AAB build c
    https://your-domain.com/downloads/<filename>.aab
    
    Examples:
-   https://your-domain.com/downloads/strager-marketplace-v20.apk
-   https://your-domain.com/downloads/app-release-v20.aab
+   https://your-domain.com/downloads/strager-marketplace-v21.apk
+   https://your-domain.com/downloads/app-release-v22.aab
 
 4. **Using the Filename Parameter**
    Both the /apk-download and /aab-download pages support a filename parameter to dynamically generate the download link:
    
-   For APK (current default is v20):
-   https://your-domain.com/apk-download?filename=strager-marketplace-v20.apk
+   For APK (current default is v21):
+   https://your-domain.com/apk-download?filename=strager-marketplace-v21.apk
    
-   For AAB (current default is v19):
-   https://your-domain.com/aab-download?filename=app-release-v19.aab
+   For AAB (current default is v22):
+   https://your-domain.com/aab-download?filename=app-release-v22.aab
    
    - The page will automatically construct the full download URL
    - Users can download or copy the link directly from the page
@@ -62,7 +62,7 @@ you must rebuild your app from the Android wrapper project using the AAB build c
    - Use a new filename with an incremented version number
    - This prevents users from downloading cached old versions
    - Update the filename parameter in your shared links to point to the new version
-   - Example: /apk-download?filename=strager-marketplace-v21.apk
+   - Example: /aab-download?filename=app-release-v23.aab
 
 6. **Important Reminders**
    - Use versioned filenames to avoid browser caching confusion
@@ -86,11 +86,11 @@ See the download guide pages for detailed instructions:
   * Dynamic download link generation with filename parameter support
   * End-user installation instructions for Android
   * Security best practices
-  * Current default: strager-marketplace-v20.apk
+  * Current default: strager-marketplace-v21.apk
 
 - AAB Download Guide: /aab-download
   * Developer instructions for hosting AABs
   * Dynamic download link generation with filename parameter support
   * Play Console upload instructions
   * Important notes about AAB vs APK usage
-  * Current default: app-release-v19.aab
+  * Current default: app-release-v22.aab

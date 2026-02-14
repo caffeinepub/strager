@@ -1,15 +1,14 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T14:38:42.358Z",
-  "summary": "REQ-60 and REQ-61 appear implemented: /apk-download now defaults to strager-marketplace-v20.apk when no filename query param is present, and the downloads README has been updated to use v20 consistently in examples and to document the v20 default.",
+  "generatedAt": "2026-02-14T16:40:26.678Z",
+  "summary": "REQ-89 appears implemented by adding a clearly labeled “Buy” navigation entry routing to /products in the main (desktop) header, and the diff summary indicates it is also present in the mobile navigation (left menu and quick-links), visible regardless of authentication state. No evidence suggests routes were removed/renamed or that non-English text was introduced.",
   "missing_requirements": [],
   "hallucinated_features": [],
-  "confidence": 0.86,
+  "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/public/downloads/README.txt",
-    "frontend/src/pages/ApkDownloadPage.tsx",
+    "frontend/src/components/Header.tsx",
     "project_state.json"
   ]
 }

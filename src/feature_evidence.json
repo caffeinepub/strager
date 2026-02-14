@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-apk-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-a-version-20-apk-filename-use-a-versioned-default-like-strager-marketplace-v20-apk-instead-of-the-current-default-strager-marketplace-v1-apk",
-      "featureTitle": "Update the /apk-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 20 APK filename (use a versioned default like strager-marketplace-v20.apk) instead of the current default strager-marketplace-v1.apk.",
+      "featureId": "feature-add-a-clearly-labeled-buy-entry-point-in-the-main-navigation-so-users-can-easily-access-the-shopping-browsing-experience-route-to-products-and-ensure-it-is-visible-for-both-authenticated-and-unauthenticated-users-on-desktop-and-mobile",
+      "featureTitle": "Add a clearly labeled “Buy” entry point in the main navigation so users can easily access the shopping/browsing experience (route to /products), and ensure it is visible for both authenticated and unauthenticated users on desktop and mobile.",
       "files": [
-        "frontend/src/pages/ApkDownloadPage.tsx"
+        "frontend/src/components/Header.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,26 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-60"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-developer-facing-documentation-in-frontend-public-downloads-readme-txt-to-reflect-the-current-default-apk-filename-used-by-apk-download-version-20-and-ensure-all-example-apk-links-and-filenames-align-with-that-default",
-      "featureTitle": "Update developer-facing documentation in frontend/public/downloads/README.txt to reflect the current default APK filename used by /apk-download (Version 20), and ensure all example APK links and filenames align with that default.",
-      "files": [
-        "frontend/public/downloads/README.txt"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-61"
+        "REQ-89"
       ],
       "confidence": "high"
     }

@@ -4,10 +4,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowRight } from 'lucide-react';
+import LocationStrip from '../components/LocationStrip';
+import PromoCarousel from '../components/PromoCarousel';
+import QuickBenefitsRow from '../components/QuickBenefitsRow';
+import { useScrollToAnchorOnRoute } from '../hooks/useScrollToAnchorOnRoute';
 
 export default function HomePage() {
   const { data: products = [], isLoading: productsLoading } = useGetAllActiveProducts();
   const { data: categories = [], isLoading: categoriesLoading } = useGetCategories();
+
+  useScrollToAnchorOnRoute();
 
   const featuredProducts = products.slice(0, 8);
 
@@ -20,42 +26,25 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        <div className="container-custom py-12 md:py-20">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Discover Amazing Products
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-xl">
-                Shop from thousands of sellers and find exactly what you're looking for. Quality products at great prices.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" asChild>
-                  <Link to="/products">
-                    Start Shopping
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/seller/dashboard">Become a Seller</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="relative aspect-[16/9] lg:aspect-auto lg:h-[400px] rounded-lg overflow-hidden shadow-soft">
-              <img
-                src="/assets/generated/hero-banner.dim_1600x600.png"
-                alt="Shop online"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+      {/* Location Strip */}
+      <LocationStrip />
+
+      {/* Promo Carousel Section */}
+      <section className="py-6 bg-background">
+        <div className="container-custom">
+          <PromoCarousel />
+        </div>
+      </section>
+
+      {/* Quick Benefits Row */}
+      <section className="border-y bg-muted/20">
+        <div className="container-custom">
+          <QuickBenefitsRow />
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="page-section bg-muted/30">
+      <section id="categories-section" className="page-section bg-background">
         <div className="container-custom">
           <div className="mb-8">
             <h2 className="text-3xl font-bold tracking-tight">Shop by Category</h2>
@@ -100,7 +89,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="page-section">
+      <section className="page-section bg-muted/30">
         <div className="container-custom">
           <div className="mb-8 flex items-center justify-between">
             <div>

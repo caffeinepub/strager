@@ -1,36 +1,23 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update APK download default filename to v20 and align downloads README",
+  "title": "Add “Buy” navigation entry point to /products",
   "requirements": [
     {
-      "id": "REQ-60",
-      "summary": "Change /apk-download to default to the Version 20 APK filename when no filename query parameter is provided, and ensure generated links use that default.",
+      "id": "REQ-89",
+      "summary": "Add a visible “Buy” navigation item that routes to /products on both desktop and mobile for authenticated and unauthenticated users.",
       "acceptanceCriteria": [
-        "Navigating to /apk-download with no query parameters shows the default filename as strager-marketplace-v20.apk.",
-        "The generated direct download URL uses /downloads/strager-marketplace-v20.apk by default.",
-        "The generated shareable page link uses /apk-download?filename=strager-marketplace-v20.apk by default."
+        "Desktop header shows a “Buy” navigation item that routes to “/products”.",
+        "Mobile navigation provides a visible “Buy” entry point that routes to “/products” (either in the left menu, the quick-links row, or both).",
+        "The “Buy” entry is visible even when the user is not signed in.",
+        "All user-facing text added/updated for this change is in English.",
+        "No existing routes are removed or renamed; “/products” remains the shopping destination."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ApkDownloadPage.tsx",
+          "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Update the no-query-parameter default APK filename from strager-marketplace-v1.apk to strager-marketplace-v20.apk, ensuring the rendered filename, direct download URL, and shareable page URL all reflect the v20 default. Also update any developer-instruction examples on the page that currently reference the v1 APK so they match the new default."
-        }
-      ]
-    },
-    {
-      "id": "REQ-61",
-      "summary": "Update developer documentation under frontend/public/downloads/README.txt to reflect the Version 20 default APK filename used by /apk-download and align examples.",
-      "acceptanceCriteria": [
-        "frontend/public/downloads/README.txt includes Version 20 as the current default APK example (e.g., strager-marketplace-v20.apk).",
-        "Any README examples for /apk-download and direct /downloads/ links use strager-marketplace-v20.apk (unless explicitly describing historical examples)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/downloads/README.txt",
-          "operation": "modify",
-          "description": "Revise the README to reflect that the current default APK filename used by /apk-download is strager-marketplace-v20.apk, and update any /apk-download and /downloads/ examples that currently reference strager-marketplace-v1.apk to use strager-marketplace-v20.apk (unless intentionally documenting older versions)."
+          "description": "Update the main header navigation to include a clearly labeled “Buy” link that routes to \"/products\" and is always rendered (not gated by authentication) for desktop and mobile. Ensure mobile includes the “Buy” entry point in the left Sheet menu and/or the Quick Links row. Use existing composed shadcn/ui components (e.g., Button/Sheet/Link) without modifying any files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
         }
       ]
     }

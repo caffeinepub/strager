@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
+import { User, Mail, Store } from 'lucide-react';
 
 export default function ProfileSetupDialog() {
   const { identity } = useInternetIdentity();
@@ -38,7 +39,7 @@ export default function ProfileSetupDialog() {
     e.preventDefault();
     
     if (!displayName.trim()) {
-      toast.error('Please enter your name');
+      toast.error('Full name is required to continue');
       return;
     }
 
@@ -48,55 +49,92 @@ export default function ProfileSetupDialog() {
         email: email.trim(),
         isSeller,
       });
-      toast.success('Profile created successfully!');
+      toast.success('Your profile has been created successfully');
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create profile');
+      toast.error(error.message || 'Unable to create profile. Please try again.');
     }
   };
 
   return (
     <Dialog open={showProfileSetup}>
-      <DialogContent className="sm:max-w-md" onInteractOutside={(e) => e.preventDefault()}>
-        <DialogHeader>
-          <DialogTitle>Welcome to Marketplace!</DialogTitle>
-          <DialogDescription>
-            Please set up your profile to continue
+      <DialogContent className="sm:max-w-lg" onInteractOutside={(e) => e.preventDefault()}>
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-2xl font-semibold">Welcome to Strager</DialogTitle>
+          <DialogDescription className="text-base">
+            Please complete your profile to start exploring our marketplace
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="displayName">Name *</Label>
-            <Input
-              id="displayName"
-              placeholder="Enter your name"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              required
-            />
+        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="displayName" className="text-sm font-medium flex items-center gap-2">
+                <User className="h-4 w-4 text-muted-foreground" />
+                Full Name <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="displayName"
+                placeholder="Enter your full name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                required
+                className="h-11"
+              />
+              <p className="text-xs text-muted-foreground">
+                This name will be visible to other users
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+                <Mail className="h-4 w-4 text-muted-foreground" />
+                Email Address <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="your.email@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="h-11"
+              />
+              <p className="text-xs text-muted-foreground">
+                Receive order updates and important notifications
+              </p>
+            </div>
+
+            <div className="rounded-lg border bg-muted/50 p-4">
+              <div className="flex items-start space-x-3">
+                <Checkbox
+                  id="isSeller"
+                  checked={isSeller}
+                  onCheckedChange={(checked) => setIsSeller(checked as boolean)}
+                  className="mt-0.5"
+                />
+                <div className="flex-1 space-y-1">
+                  <Label htmlFor="isSeller" className="text-sm font-medium cursor-pointer flex items-center gap-2">
+                    <Store className="h-4 w-4" />
+                    Enable seller account
+                  </Label>
+                  <p className="text-xs text-muted-foreground">
+                    Check this option if you plan to list and sell products on Strager
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email (optional)</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+
+          <div className="flex flex-col gap-3 pt-2">
+            <Button 
+              type="submit" 
+              className="w-full h-11 text-base font-medium" 
+              disabled={saveProfile.isPending}
+            >
+              {saveProfile.isPending ? 'Creating your profile...' : 'Continue to Strager'}
+            </Button>
+            <p className="text-xs text-center text-muted-foreground">
+              By continuing, you agree to our Terms of Service and Privacy Policy
+            </p>
           </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="isSeller"
-              checked={isSeller}
-              onCheckedChange={(checked) => setIsSeller(checked as boolean)}
-            />
-            <Label htmlFor="isSeller" className="text-sm font-normal cursor-pointer">
-              I want to sell products on this marketplace
-            </Label>
-          </div>
-          <Button type="submit" className="w-full" disabled={saveProfile.isPending}>
-            {saveProfile.isPending ? 'Creating Profile...' : 'Continue'}
-          </Button>
         </form>
       </DialogContent>
     </Dialog>

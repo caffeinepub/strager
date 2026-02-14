@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update the `/apk-download` default APK filename to the current release (Version 20) and align related documentation.
+**Goal:** Add a clearly labeled “Buy” entry point in main navigation so users can easily access the shopping experience at `/products` on both desktop and mobile, regardless of sign-in state.
 
 **Planned changes:**
-- Update the `/apk-download` page logic so that when no `?filename=...` query parameter is provided, it defaults to `strager-marketplace-v20.apk` (instead of `strager-marketplace-v1.apk`).
-- Ensure the generated default direct download URL uses `/downloads/strager-marketplace-v20.apk`.
-- Ensure the generated default shareable page link uses `/apk-download?filename=strager-marketplace-v20.apk`.
-- Update `frontend/public/downloads/README.txt` examples to reference Version 20 (`strager-marketplace-v20.apk`) as the current default.
+- Add a “Buy” navigation item in the desktop header that routes to `/products`.
+- Add a visible “Buy” entry point in the mobile navigation (e.g., left menu and/or quick-links row) that routes to `/products`.
+- Ensure the “Buy” entry is shown for both authenticated and unauthenticated users, with all user-facing text in English.
 
-**User-visible outcome:** Visiting `/apk-download` without query parameters shows and generates download/share links for `strager-marketplace-v20.apk` by default, and the downloads README reflects the same default.
+**User-visible outcome:** Users can always find and tap/click “Buy” in the site navigation (desktop and mobile) to go directly to `/products` to browse/shop.

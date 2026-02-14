@@ -1,52 +1,36 @@
 {
   "kind": "build_request",
-  "title": "Update APK download link generator defaults for current release",
+  "title": "Add a visible “Buy” entry point for shopping",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-60",
-      "text": "Update the /apk-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 20 APK filename (use a versioned default like strager-marketplace-v20.apk) instead of the current default strager-marketplace-v1.apk.",
+      "id": "REQ-89",
+      "text": "Add a clearly labeled “Buy” entry point in the main navigation so users can easily access the shopping/browsing experience (route to /products), and ensure it is visible for both authenticated and unauthenticated users on desktop and mobile.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "recent-messages"
         ],
         "quotes": [
-          "User: Generate apk link"
+          "Isme buy section hai"
         ]
       },
       "acceptanceCriteria": [
-        "Navigating to /apk-download with no query parameters shows the default filename as strager-marketplace-v20.apk.",
-        "The generated direct download URL uses /downloads/strager-marketplace-v20.apk by default.",
-        "The generated shareable page link uses /apk-download?filename=strager-marketplace-v20.apk by default."
-      ]
-    },
-    {
-      "id": "REQ-61",
-      "text": "Update developer-facing documentation in frontend/public/downloads/README.txt to reflect the current default APK filename used by /apk-download (Version 20), and ensure all example APK links and filenames align with that default.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "User: Generate apk link"
-        ]
-      },
-      "acceptanceCriteria": [
-        "frontend/public/downloads/README.txt includes Version 20 as the current default APK example (e.g., strager-marketplace-v20.apk).",
-        "Any README examples for /apk-download and direct /downloads/ links use strager-marketplace-v20.apk (unless explicitly describing historical examples)."
+        "Desktop header shows a “Buy” navigation item that routes to “/products”.",
+        "Mobile navigation provides a visible “Buy” entry point that routes to “/products” (either in the left menu, the quick-links row, or both).",
+        "The “Buy” entry is visible even when the user is not signed in.",
+        "All user-facing text added/updated for this change is in English.",
+        "No existing routes are removed or renamed; “/products” remains the shopping destination."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "All user-facing text introduced/modified by this change must be in English."
+    "Do not modify any files under frontend/src/components/ui (read-only Shadcn components must be composed, not edited).",
+    "Do not edit immutable frontend paths listed in SYSTEM_CONTEXT."
   ],
   "nonGoals": [
-    "Do not implement Android build tooling or generate an actual APK file in this change.",
-    "Do not change backend canister APIs or data models.",
-    "Do not add new routes; use the existing /apk-download flow."
+    "Do not change backend APIs, state, or data models for this request.",
+    "Do not add payments or external checkout providers."
   ],
   "imageRequirements": {
     "required": [],

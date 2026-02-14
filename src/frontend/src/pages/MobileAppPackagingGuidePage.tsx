@@ -1,765 +1,432 @@
-import { Package, Smartphone, Apple, Chrome, Code2, FileCode, Image, Palette, CheckCircle2, ExternalLink, Copy, FileText, AlertTriangle, Download } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
+import { Package, Smartphone, Download, ExternalLink, AlertTriangle, CheckCircle2, Info } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getSiteOrigin } from '@/utils/siteOrigin';
 import { copyToClipboard } from '@/utils/clipboard';
+import { useState } from 'react';
 
 export default function MobileAppPackagingGuidePage() {
-  const [copiedField, setCopiedField] = useState<string | null>(null);
-  const [copyError, setCopyError] = useState<string | null>(null);
-
   const siteOrigin = getSiteOrigin();
+  const [copySuccess, setCopySuccess] = useState<string | null>(null);
 
-  const handleCopy = async (text: string, field: string) => {
-    setCopyError(null);
+  const handleCopy = async (text: string, id: string) => {
     const success = await copyToClipboard(text);
-    
     if (success) {
-      setCopiedField(field);
-      setTimeout(() => setCopiedField(null), 2000);
-    } else {
-      setCopyError('Unable to copy automatically. Please select and copy the text manually.');
-      setTimeout(() => setCopyError(null), 5000);
+      setCopySuccess(id);
+      setTimeout(() => setCopySuccess(null), 2000);
     }
   };
 
-  const playStoreMetadata = {
-    appName: "Strager Marketplace",
-    shortDescription: "Buy and sell products in a vibrant online marketplace. Discover unique items, manage your shop, and connect with buyers and sellers.",
-    fullDescription: `Strager Marketplace is your go-to platform for buying and selling products online. Whether you're looking for unique items or want to start your own shop, Strager makes it easy.
-
-KEY FEATURES:
-• Browse thousands of products across multiple categories
-• Create your own seller account and list products
-• Secure shopping cart and checkout process
-• Track your orders in real-time
-• Manage your seller dashboard with ease
-• Search and filter to find exactly what you need
-• Responsive design works on any device
-
-FOR BUYERS:
-Discover products from trusted sellers, add items to your cart, and complete purchases with our streamlined checkout. Track all your orders and manage your account from one place.
-
-FOR SELLERS:
-Turn your passion into profit. Create product listings with photos and descriptions, manage inventory, and reach customers worldwide. Our seller dashboard makes it simple to run your online shop.
-
-SAFE & SECURE:
-Your privacy and security are our top priorities. All transactions are processed securely, and we never share your personal information without your consent.
-
-Download Strager Marketplace today and join our growing community of buyers and sellers!`,
-    category: "Shopping",
-    contentRating: "Everyone",
-    privacyPolicyUrl: `${siteOrigin}/privacy`,
-    termsUrl: `${siteOrigin}/terms`,
-    supportUrl: `${siteOrigin}/support`
-  };
+  const privacyUrl = siteOrigin ? `${siteOrigin}/privacy` : '[Your domain]/privacy';
+  const termsUrl = siteOrigin ? `${siteOrigin}/terms` : '[Your domain]/terms';
+  const supportUrl = siteOrigin ? `${siteOrigin}/support` : '[Your domain]/support';
 
   return (
     <div className="container-custom py-12">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <div className="mb-8 text-center">
-          <h1 className="mb-3 text-4xl font-bold">Package as Mobile App</h1>
+          <div className="mb-4 flex justify-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+              <Package className="h-8 w-8 text-primary" />
+            </div>
+          </div>
+          <h1 className="mb-3 text-4xl font-bold">Mobile App Packaging Guide</h1>
           <p className="text-lg text-muted-foreground">
-            Learn how to publish Strager to the Play Store or App Store
+            Complete guide to packaging Strager for Android and iOS app stores
           </p>
         </div>
 
-        {/* Important Notice */}
-        <Alert className="mb-8">
-          <Package className="h-4 w-4" />
-          <AlertTitle>Important Note</AlertTitle>
-          <AlertDescription>
-            This guide provides instructions for packaging your website as a mobile app wrapper. 
-            This project does not automatically generate APK, AAB, or IPA files. You'll need to use 
-            external tools and follow platform-specific submission processes.
-          </AlertDescription>
-        </Alert>
-
-        {/* Copy Error Alert */}
-        {copyError && (
-          <Alert variant="destructive" className="mb-8">
-            <AlertTitle>Copy Failed</AlertTitle>
-            <AlertDescription>{copyError}</AlertDescription>
+        {/* SSR Notice */}
+        {!siteOrigin && (
+          <Alert className="mb-8">
+            <Info className="h-4 w-4" />
+            <AlertTitle>URLs Available in Browser Only</AlertTitle>
+            <AlertDescription>
+              Some URLs and copy features on this page are generated based on your current domain and are only available when viewing in a browser.
+            </AlertDescription>
           </Alert>
         )}
 
-        <div className="space-y-8">
-          {/* PWA Section */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Smartphone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <CardTitle>Option 1: Progressive Web App (PWA)</CardTitle>
-                  <CardDescription>Already implemented — no store submission needed</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Your Strager website is already a Progressive Web App. Users can install it directly 
-                from their browser without going through app stores.
-              </p>
-              
-              <div className="rounded-lg bg-muted/50 p-4">
-                <h4 className="mb-2 font-semibold text-sm">Benefits:</h4>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">✓</span>
-                    <span>No app store approval process</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">✓</span>
-                    <span>Instant updates (no app store delays)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">✓</span>
-                    <span>Works on both Android and iOS</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary">✓</span>
-                    <span>No developer fees</span>
-                  </li>
-                </ul>
-              </div>
+        <Tabs defaultValue="pwa" className="space-y-8">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="pwa">PWA Install</TabsTrigger>
+            <TabsTrigger value="android">Android (APK/AAB)</TabsTrigger>
+            <TabsTrigger value="ios">iOS Wrapper</TabsTrigger>
+          </TabsList>
 
-              <Button asChild variant="outline" className="w-full sm:w-auto">
-                <Link to="/install">
-                  View PWA Install Instructions
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+          {/* PWA Tab */}
+          <TabsContent value="pwa" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Progressive Web App (PWA)</CardTitle>
+                <CardDescription>
+                  Install Strager directly from the browser without app store submission
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Alert>
+                  <CheckCircle2 className="h-4 w-4" />
+                  <AlertTitle>Easiest Option</AlertTitle>
+                  <AlertDescription>
+                    PWA installation requires no additional build steps. Users can install directly from their browser.
+                  </AlertDescription>
+                </Alert>
 
-          <Separator />
-
-          {/* Android Wrapper Section */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
-                  <Chrome className="h-6 w-6 text-green-600 dark:text-green-400" />
+                <div className="space-y-3">
+                  <h3 className="font-semibold">How Users Install:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                    <li>Visit your app URL in Chrome (Android) or Safari (iOS)</li>
+                    <li>Tap the browser menu (⋮ or share icon)</li>
+                    <li>Select "Install app" or "Add to Home Screen"</li>
+                    <li>The app icon appears on their home screen</li>
+                  </ol>
                 </div>
-                <div>
-                  <CardTitle>Option 2: Android Wrapper App (Play Store)</CardTitle>
-                  <CardDescription>Package your website as a native Android app</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <p className="text-sm text-muted-foreground">
-                An Android wrapper app loads your website inside a native Android container. This allows 
-                you to publish to the Google Play Store while maintaining your web-based codebase.
-              </p>
 
-              {/* Build an APK (Android) Section */}
-              <div className="rounded-lg border-2 border-accent/30 bg-accent/5 p-6 space-y-6">
-                <div>
-                  <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-                    <Code2 className="h-5 w-5 text-accent" />
-                    Build an APK (Android)
-                  </h3>
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Benefits:</h3>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    <li>No app store approval process</li>
+                    <li>Instant updates when you deploy</li>
+                    <li>Works on both Android and iOS</li>
+                    <li>Smaller download size</li>
+                  </ul>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Limitations:</h3>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    <li>Not discoverable in app stores</li>
+                    <li>Limited access to some native device features</li>
+                    <li>Users must know your URL to install</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Android Tab */}
+          <TabsContent value="android" className="space-y-6">
+            <Alert>
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>External Tooling Required</AlertTitle>
+              <AlertDescription>
+                Creating Android APK/AAB files requires Android Studio and the Android wrapper project. 
+                This is separate from PWA installation.
+              </AlertDescription>
+            </Alert>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Android APK (Direct Installation)</CardTitle>
+                <CardDescription>
+                  Build an APK file for direct installation on Android devices
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Prerequisites:</h3>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    <li>Android Studio installed</li>
+                    <li>Android wrapper project (TWA or Capacitor)</li>
+                    <li>Your app URL configured in the wrapper</li>
+                  </ul>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Build Steps:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                    <li>Open your Android wrapper project in Android Studio</li>
+                    <li>Update the app URL to point to your deployed app</li>
+                    <li>Go to Build → Build Bundle(s) / APK(s) → Build APK(s)</li>
+                    <li>Wait for the build to complete</li>
+                    <li>Find the APK in <code className="bg-muted px-1 py-0.5 rounded text-xs">app/build/outputs/apk/</code></li>
+                  </ol>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Distribution:</h3>
                   <p className="text-sm text-muted-foreground">
-                    Follow these steps to create an Android application package for local testing (APK) 
-                    or Play Store submission (AAB).
+                    Place your APK file in <code className="bg-muted px-1 py-0.5 rounded text-xs">frontend/public/downloads/</code> and 
+                    share the download link with users.
                   </p>
+                  <Button asChild variant="outline" className="w-full sm:w-auto">
+                    <a href="/apk-download">
+                      <Download className="mr-2 h-4 w-4" />
+                      View APK Download Page
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Android AAB (Play Store Upload)</CardTitle>
+                <CardDescription>
+                  Build an Android App Bundle for Google Play Store submission
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Alert>
+                  <Info className="h-4 w-4" />
+                  <AlertTitle>Important: AAB vs APK</AlertTitle>
+                  <AlertDescription>
+                    AAB files cannot be converted from APK files. You must build an AAB directly from your Android wrapper project. 
+                    APKs are for direct installation; AABs are for Play Store upload only.
+                  </AlertDescription>
+                </Alert>
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Build Steps:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                    <li>Open your Android wrapper project in Android Studio</li>
+                    <li>Update the app URL to point to your deployed app</li>
+                    <li>Go to Build → Generate Signed Bundle / APK</li>
+                    <li>Select "Android App Bundle"</li>
+                    <li>Create or select your signing key</li>
+                    <li>Choose "release" build variant</li>
+                    <li>Wait for the build to complete</li>
+                    <li>Find the AAB in <code className="bg-muted px-1 py-0.5 rounded text-xs">app/build/outputs/bundle/release/</code></li>
+                  </ol>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Play Store Submission:</h3>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Upload your AAB to Google Play Console for distribution through the Play Store.
+                  </p>
+                  <Button asChild variant="outline" className="w-full sm:w-auto">
+                    <a href="/aab-download">
+                      <Download className="mr-2 h-4 w-4" />
+                      View AAB Download Page
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Play Store Metadata</CardTitle>
+                <CardDescription>
+                  Required information for Google Play Store listing
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <h3 className="font-semibold">App Details:</h3>
+                  <div className="rounded-lg border bg-muted/30 p-4 space-y-3 text-sm">
+                    <div>
+                      <p className="font-medium">App Name:</p>
+                      <p className="text-muted-foreground">Strager</p>
+                    </div>
+                    <Separator />
+                    <div>
+                      <p className="font-medium">Short Description:</p>
+                      <p className="text-muted-foreground">Your online marketplace for buying and selling products</p>
+                    </div>
+                    <Separator />
+                    <div>
+                      <p className="font-medium">Category:</p>
+                      <p className="text-muted-foreground">Shopping</p>
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Required URLs:</h3>
+                  {siteOrigin ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2 rounded-lg border bg-background p-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-muted-foreground">Privacy Policy:</p>
+                          <code className="text-xs break-all">{privacyUrl}</code>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleCopy(privacyUrl, 'privacy')}
+                        >
+                          {copySuccess === 'privacy' ? <CheckCircle2 className="h-4 w-4" /> : 'Copy'}
+                        </Button>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 rounded-lg border bg-background p-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-muted-foreground">Terms of Service:</p>
+                          <code className="text-xs break-all">{termsUrl}</code>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleCopy(termsUrl, 'terms')}
+                        >
+                          {copySuccess === 'terms' ? <CheckCircle2 className="h-4 w-4" /> : 'Copy'}
+                        </Button>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 rounded-lg border bg-background p-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-muted-foreground">Support/Contact:</p>
+                          <code className="text-xs break-all">{supportUrl}</code>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleCopy(supportUrl, 'support')}
+                        >
+                          {copySuccess === 'support' ? <CheckCircle2 className="h-4 w-4" /> : 'Copy'}
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <Alert>
+                      <Info className="h-4 w-4" />
+                      <AlertDescription>
+                        URL copy functionality is available when viewing this page in a browser.
+                      </AlertDescription>
+                    </Alert>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Branding Assets</CardTitle>
+                <CardDescription>
+                  Graphics and screenshots for your Play Store listing
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Available Assets:</h3>
+                  <div className="grid gap-3">
+                    <div className="rounded-lg border bg-muted/30 p-3">
+                      <p className="text-sm font-medium">App Icon (512×512)</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        <code className="bg-muted px-1 py-0.5 rounded">/assets/generated/app-icon-s.dim_512x512.png</code>
+                      </p>
+                    </div>
+                    <div className="rounded-lg border bg-muted/30 p-3">
+                      <p className="text-sm font-medium">Feature Graphic (1024×500)</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        <code className="bg-muted px-1 py-0.5 rounded">/assets/generated/play-store-feature-graphic.dim_1024x500.png</code>
+                      </p>
+                    </div>
+                    <div className="rounded-lg border bg-muted/30 p-3">
+                      <p className="text-sm font-medium">Screenshots (1080×1920)</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        <code className="bg-muted px-1 py-0.5 rounded">/assets/generated/play-store-screenshot-[1-4].dim_1080x1920.png</code>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* iOS Tab */}
+          <TabsContent value="ios" className="space-y-6">
+            <Alert>
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Requires macOS and Xcode</AlertTitle>
+              <AlertDescription>
+                Building iOS apps requires a Mac computer with Xcode installed and an Apple Developer account ($99/year).
+              </AlertDescription>
+            </Alert>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>iOS App Wrapper</CardTitle>
+                <CardDescription>
+                  Package your web app as a native iOS application
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Prerequisites:</h3>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                    <li>Mac computer with macOS</li>
+                    <li>Xcode installed from the Mac App Store</li>
+                    <li>Apple Developer account (for App Store submission)</li>
+                    <li>iOS wrapper project (Capacitor recommended)</li>
+                  </ul>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">Recommended Approach: Capacitor</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                    <li>Install Capacitor: <code className="bg-muted px-1 py-0.5 rounded text-xs">npm install @capacitor/core @capacitor/ios</code></li>
+                    <li>Initialize Capacitor in your project</li>
+                    <li>Add iOS platform: <code className="bg-muted px-1 py-0.5 rounded text-xs">npx cap add ios</code></li>
+                    <li>Build your web app: <code className="bg-muted px-1 py-0.5 rounded text-xs">npm run build</code></li>
+                    <li>Copy web assets: <code className="bg-muted px-1 py-0.5 rounded text-xs">npx cap copy ios</code></li>
+                    <li>Open in Xcode: <code className="bg-muted px-1 py-0.5 rounded text-xs">npx cap open ios</code></li>
+                    <li>Configure signing and capabilities in Xcode</li>
+                    <li>Build and archive for App Store submission</li>
+                  </ol>
+                </div>
+
+                <Separator />
+
+                <div className="space-y-3">
+                  <h3 className="font-semibold">App Store Submission:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
+                    <li>Create an App Store Connect record for your app</li>
+                    <li>Prepare app metadata, screenshots, and description</li>
+                    <li>Archive your app in Xcode (Product → Archive)</li>
+                    <li>Upload to App Store Connect via Xcode Organizer</li>
+                    <li>Submit for review</li>
+                  </ol>
                 </div>
 
                 <Alert>
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertTitle>APK vs AAB</AlertTitle>
+                  <Info className="h-4 w-4" />
+                  <AlertTitle>Review Process</AlertTitle>
                   <AlertDescription>
-                    <strong>APK (Android Package)</strong> is used for local testing and direct installation on devices. 
-                    <strong className="ml-1">AAB (Android App Bundle)</strong> is required for Play Store submission and allows 
-                    Google to optimize the app for different device configurations.
+                    Apple's review process typically takes 1-3 days. Ensure your app meets all App Store guidelines before submission.
                   </AlertDescription>
                 </Alert>
+              </CardContent>
+            </Card>
 
-                <div>
-                  <h4 className="mb-4 font-semibold text-lg">Step-by-Step Checklist:</h4>
-                  <div className="space-y-4">
-                    <div className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sm font-bold text-accent">
-                        1
-                      </div>
-                      <div>
-                        <p className="font-medium">Choose your wrapper approach</p>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Select one of the following methods to create your Android wrapper:
-                        </p>
-                        <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Android Studio WebView wrapper:</strong> Create a native Android project with a WebView component that loads your website URL</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Trusted Web Activity (TWA):</strong> Use Chrome Custom Tabs to display your PWA in full-screen mode (recommended for PWAs)</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Third-party tools:</strong> Use PWABuilder, Capacitor, or Cordova to generate the wrapper automatically</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    <div className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sm font-bold text-accent">
-                        2
-                      </div>
-                      <div>
-                        <p className="font-medium">Set up your Android project</p>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Configure your project with these details:
-                        </p>
-                        <div className="rounded-lg bg-muted/50 p-3 text-xs font-mono space-y-1">
-                          <p><span className="text-muted-foreground">App Name:</span> Strager Marketplace</p>
-                          <p><span className="text-muted-foreground">Package Name:</span> com.strager.marketplace (or your domain)</p>
-                          <p><span className="text-muted-foreground">Website URL:</span> {siteOrigin}</p>
-                          <p><span className="text-muted-foreground">Theme Color:</span> #ff6b35</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    {/* TWA Prerequisite Subsection */}
-                    <div className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sm font-bold text-accent">
-                        3
-                      </div>
-                      <div className="w-full">
-                        <p className="font-medium mb-2">Trusted Web Activity (TWA) prerequisite</p>
-                        <Alert className="mb-3">
-                          <AlertTriangle className="h-4 w-4" />
-                          <AlertTitle>Digital Asset Links Required</AlertTitle>
-                          <AlertDescription>
-                            If using TWA, you must configure Digital Asset Links to verify your app's connection to your website.
-                          </AlertDescription>
-                        </Alert>
-                        <div className="space-y-3 text-sm">
-                          <p className="text-muted-foreground">
-                            This project includes a Digital Asset Links file at <code className="text-xs bg-muted px-1 py-0.5 rounded">frontend/public/.well-known/assetlinks.json</code> with placeholder values that <strong>must be replaced</strong>:
-                          </p>
-                          <div className="rounded-lg bg-muted/50 p-3 text-xs font-mono space-y-1">
-                            <p><span className="text-destructive font-bold">PACKAGE_NAME_HERE</span> → Replace with your actual package name (e.g., com.strager.marketplace)</p>
-                            <p><span className="text-destructive font-bold">SHA256_FINGERPRINT_HERE</span> → Replace with your app's SHA-256 certificate fingerprint</p>
-                          </div>
-                          <p className="text-muted-foreground">
-                            <strong>How to obtain these values:</strong> See the detailed instructions in <code className="text-xs bg-muted px-1 py-0.5 rounded">frontend/public/.well-known/assetlinks.README.txt</code> which explains:
-                          </p>
-                          <ul className="ml-4 space-y-1 text-muted-foreground">
-                            <li className="flex items-start gap-2">
-                              <span>•</span>
-                              <span>How to get your package name from your Android project</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span>•</span>
-                              <span>How to generate and extract the SHA-256 fingerprint using keytool</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span>•</span>
-                              <span>How to update the assetlinks.json file and deploy it</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span>•</span>
-                              <span>How to verify your configuration is working</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    <div className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sm font-bold text-accent">
-                        4
-                      </div>
-                      <div>
-                        <p className="font-medium">Build your APK or AAB</p>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Use Android Studio or command-line tools to build:
-                        </p>
-                        <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Debug APK:</strong> For testing on your device</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Release APK:</strong> Signed APK for distribution outside Play Store</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Release AAB:</strong> Required for Play Store submission</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    <div className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sm font-bold text-accent">
-                        5
-                      </div>
-                      <div>
-                        <p className="font-medium">Test your APK</p>
-                        <p className="text-sm text-muted-foreground">
-                          Install the APK on a physical Android device or emulator to verify functionality before submission.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Build a Release AAB (Play Store submission) Section */}
-                <div className="rounded-lg border-2 border-green-600/30 bg-green-600/5 p-6 space-y-4">
-                  <div>
-                    <h4 className="text-lg font-bold mb-2 flex items-center gap-2">
-                      <Package className="h-5 w-5 text-green-600 dark:text-green-400" />
-                      Build a Release AAB (Google Play submission)
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Google Play requires an Android App Bundle (AAB) for all new apps and updates. Follow these steps to build a release AAB from your Android wrapper project.
-                    </p>
-                  </div>
-
-                  <Alert>
-                    <AlertTriangle className="h-4 w-4" />
-                    <AlertTitle>Important: You Cannot Convert APK to AAB</AlertTitle>
-                    <AlertDescription>
-                      An existing APK file cannot be reliably converted into an AAB. You must build the AAB directly from your Android wrapper project source code (WebView/TWA/etc.) using Android Studio or Gradle.
-                    </AlertDescription>
-                  </Alert>
-
-                  <div className="space-y-4">
-                    <div>
-                      <h5 className="font-semibold mb-2 text-sm">Option A: Using Android Studio</h5>
-                      <ol className="space-y-2 text-sm text-muted-foreground ml-4">
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">1.</span>
-                          <span>Open your Android wrapper project in Android Studio</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">2.</span>
-                          <span>Go to <strong>Build → Generate Signed Bundle / APK</strong></span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">3.</span>
-                          <span>Select <strong>Android App Bundle</strong> and click Next</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">4.</span>
-                          <span>Choose or create a keystore for signing (required for release builds)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">5.</span>
-                          <span>Select the <strong>release</strong> build variant</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">6.</span>
-                          <span>Click Finish and wait for the build to complete</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="font-bold text-accent">7.</span>
-                          <span>Find the generated <code className="text-xs bg-muted px-1 py-0.5 rounded">.aab</code> file in <code className="text-xs bg-muted px-1 py-0.5 rounded">app/build/outputs/bundle/release/</code></span>
-                        </li>
-                      </ol>
-                    </div>
-
-                    <Separator />
-
-                    <div>
-                      <h5 className="font-semibold mb-2 text-sm">Option B: Using Gradle Command Line</h5>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        From your Android project root directory, run:
-                      </p>
-                      <div className="rounded-lg bg-muted/50 p-3 text-xs font-mono">
-                        ./gradlew bundleRelease
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        The AAB will be generated at <code className="text-xs bg-muted px-1 py-0.5 rounded">app/build/outputs/bundle/release/app-release.aab</code>
-                      </p>
-                    </div>
-
-                    <Separator />
-
-                    <div>
-                      <h5 className="font-semibold mb-2 text-sm">Release Signing Requirements</h5>
-                      <div className="space-y-2 text-sm text-muted-foreground">
-                        <p>
-                          Release AABs must be signed with a release keystore. You'll need:
-                        </p>
-                        <ul className="ml-4 space-y-1">
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Keystore file:</strong> A .jks or .keystore file containing your signing key</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Keystore password:</strong> Password to access the keystore</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Key alias:</strong> The name of the signing key within the keystore</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span>•</span>
-                            <span><strong>Key password:</strong> Password for the specific key</span>
-                          </li>
-                        </ul>
-                        <p className="mt-2">
-                          <strong>Note:</strong> Google Play Console can manage app signing for you. After your first upload, you can find your "App signing key certificate" in Play Console under Release → Setup → App signing. Keep your upload key secure and never share it.
-                        </p>
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    <div>
-                      <h5 className="font-semibold mb-2 text-sm">Where to Find Your AAB</h5>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Common output locations for the generated AAB file:
-                      </p>
-                      <ul className="text-sm text-muted-foreground ml-4 space-y-1">
-                        <li className="flex items-start gap-2">
-                          <span>•</span>
-                          <code className="text-xs bg-muted px-1 py-0.5 rounded">app/build/outputs/bundle/release/app-release.aab</code>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span>•</span>
-                          <code className="text-xs bg-muted px-1 py-0.5 rounded">app/release/app-release.aab</code>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span>•</span>
-                          <span>Check the Android Studio build output window for the exact path</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <Alert className="bg-green-600/5 border-green-600/20">
-                    <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
-                    <AlertTitle>Ready for Play Store Upload</AlertTitle>
-                    <AlertDescription>
-                      Once you have your signed release AAB, upload it to Google Play Console under Release → Production → Create new release. The AAB file is only for Play Store submission and cannot be installed directly on devices like an APK.
-                    </AlertDescription>
-                  </Alert>
-                </div>
-
-                {/* APK Download Link */}
-                <Alert className="bg-primary/5 border-primary/20">
-                  <Download className="h-4 w-4 text-primary" />
-                  <AlertTitle>Ready to distribute your APK?</AlertTitle>
-                  <AlertDescription className="mt-2">
-                    <p className="mb-3 text-sm">
-                      Learn how to host your APK file for direct download and provide installation instructions to your users.
-                    </p>
-                    <Button asChild size="sm" className="w-full sm:w-auto">
-                      <Link to="/apk-download">
-                        <Download className="mr-2 h-4 w-4" />
-                        View APK Download Guide
-                      </Link>
-                    </Button>
-                  </AlertDescription>
-                </Alert>
-              </div>
-
-              {/* Play Store Metadata Section */}
-              <div className="rounded-lg border bg-muted/30 p-6 space-y-4">
-                <div>
-                  <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-primary" />
-                    Play Store Metadata
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Copy and paste these details when submitting to Google Play Console.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-medium">App Name</label>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleCopy(playStoreMetadata.appName, 'appName')}
-                        className="h-8"
-                      >
-                        {copiedField === 'appName' ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                    <div className="rounded-lg bg-muted/50 p-3 text-sm">
-                      {playStoreMetadata.appName}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-medium">Short Description (80 chars max)</label>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleCopy(playStoreMetadata.shortDescription, 'shortDesc')}
-                        className="h-8"
-                      >
-                        {copiedField === 'shortDesc' ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                    <div className="rounded-lg bg-muted/50 p-3 text-sm">
-                      {playStoreMetadata.shortDescription}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-sm font-medium">Full Description (4000 chars max)</label>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleCopy(playStoreMetadata.fullDescription, 'fullDesc')}
-                        className="h-8"
-                      >
-                        {copiedField === 'fullDesc' ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                    <div className="rounded-lg bg-muted/50 p-3 text-sm whitespace-pre-wrap max-h-64 overflow-y-auto">
-                      {playStoreMetadata.fullDescription}
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className="text-sm font-medium block mb-2">Category</label>
-                      <div className="rounded-lg bg-muted/50 p-3 text-sm">
-                        {playStoreMetadata.category}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium block mb-2">Content Rating</label>
-                      <div className="rounded-lg bg-muted/50 p-3 text-sm">
-                        {playStoreMetadata.contentRating}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium block mb-2">Required URLs</label>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                        <div>
-                          <p className="text-xs text-muted-foreground">Privacy Policy</p>
-                          <p className="text-sm font-mono">{playStoreMetadata.privacyPolicyUrl}</p>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleCopy(playStoreMetadata.privacyPolicyUrl, 'privacy')}
-                        >
-                          {copiedField === 'privacy' ? (
-                            <CheckCircle2 className="h-4 w-4 text-green-600" />
-                          ) : (
-                            <Copy className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                        <div>
-                          <p className="text-xs text-muted-foreground">Terms of Service</p>
-                          <p className="text-sm font-mono">{playStoreMetadata.termsUrl}</p>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleCopy(playStoreMetadata.termsUrl, 'terms')}
-                        >
-                          {copiedField === 'terms' ? (
-                            <CheckCircle2 className="h-4 w-4 text-green-600" />
-                          ) : (
-                            <Copy className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                        <div>
-                          <p className="text-xs text-muted-foreground">Support URL</p>
-                          <p className="text-sm font-mono">{playStoreMetadata.supportUrl}</p>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleCopy(playStoreMetadata.supportUrl, 'support')}
-                        >
-                          {copiedField === 'support' ? (
-                            <CheckCircle2 className="h-4 w-4 text-green-600" />
-                          ) : (
-                            <Copy className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Branding Assets Section */}
-              <div className="rounded-lg border bg-muted/30 p-6 space-y-4">
-                <div>
-                  <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                    <Image className="h-5 w-5 text-primary" />
-                    Branding Assets
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Download these pre-generated assets for your Play Store listing.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                    <div>
-                      <p className="font-medium text-sm">App Icon (512×512)</p>
-                      <p className="text-xs text-muted-foreground">High-resolution icon for Play Store</p>
-                    </div>
-                    <Button asChild variant="outline" size="sm">
-                      <a href="/assets/generated/app-icon-s.dim_512x512.png" download>
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </a>
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                    <div>
-                      <p className="font-medium text-sm">Feature Graphic (1024×500)</p>
-                      <p className="text-xs text-muted-foreground">Banner for Play Store listing</p>
-                    </div>
-                    <Button asChild variant="outline" size="sm">
-                      <a href="/assets/generated/play-store-feature-graphic.dim_1024x500.png" download>
-                        <Download className="mr-2 h-4 w-4" />
-                        Download
-                      </a>
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center justify-between rounded-lg bg-muted/50 p-3">
-                    <div>
-                      <p className="font-medium text-sm">Screenshots (1080×1920)</p>
-                      <p className="text-xs text-muted-foreground">4 phone screenshots for Play Store</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button asChild variant="outline" size="sm">
-                        <a href="/assets/generated/play-store-screenshot-1.dim_1080x1920.png" download>
-                          1
-                        </a>
-                      </Button>
-                      <Button asChild variant="outline" size="sm">
-                        <a href="/assets/generated/play-store-screenshot-2.dim_1080x1920.png" download>
-                          2
-                        </a>
-                      </Button>
-                      <Button asChild variant="outline" size="sm">
-                        <a href="/assets/generated/play-store-screenshot-3.dim_1080x1920.png" download>
-                          3
-                        </a>
-                      </Button>
-                      <Button asChild variant="outline" size="sm">
-                        <a href="/assets/generated/play-store-screenshot-4.dim_1080x1920.png" download>
-                          4
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Separator />
-
-          {/* iOS Section */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-500/10">
-                  <Apple className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-                </div>
-                <div>
-                  <CardTitle>Option 3: iOS Wrapper App (App Store)</CardTitle>
-                  <CardDescription>Package your website as a native iOS app</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Similar to Android, you can wrap your website in a native iOS container using WKWebView 
-                or tools like Capacitor. This requires a Mac with Xcode and an Apple Developer account ($99/year).
-              </p>
-
-              <div className="rounded-lg bg-muted/50 p-4">
-                <h4 className="mb-2 font-semibold text-sm">Requirements:</h4>
-                <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span>•</span>
-                    <span>Mac computer with Xcode installed</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span>•</span>
-                    <span>Apple Developer Program membership ($99/year)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span>•</span>
-                    <span>iOS wrapper project (WKWebView, Capacitor, or Cordova)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span>•</span>
-                    <span>App Store Connect account for submission</span>
-                  </li>
-                </ul>
-              </div>
-
-              <Alert>
-                <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>App Store Review Guidelines</AlertTitle>
-                <AlertDescription>
-                  Apple has strict review guidelines. Wrapper apps must provide significant functionality 
-                  beyond just displaying a website. Ensure your app offers a native-like experience and 
-                  follows Apple's Human Interface Guidelines.
-                </AlertDescription>
-              </Alert>
-
-              <Button asChild variant="outline" className="w-full sm:w-auto">
-                <a href="https://developer.apple.com/app-store/review/guidelines/" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  View App Store Guidelines
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Helpful Resources</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <a href="https://capacitorjs.com/docs/ios" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Capacitor iOS Documentation
+                  </a>
+                </Button>
+                <Button asChild variant="outline" className="w-full justify-start">
+                  <a href="https://developer.apple.com/app-store/review/guidelines/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    App Store Review Guidelines
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

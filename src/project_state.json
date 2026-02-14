@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 43,
+  "projectStateVersion": 59,
   "summary": "Build an e-commerce marketplace app similar to Meesho/Amazon, and support packaging the website into a mobile app.",
   "architectural_notes": [
     "Deployment/app domain names must be 5–50 characters and contain only letters, numbers, and hyphens.",
@@ -17,9 +17,11 @@
   "known_issues": [
     "User reports the downloaded file is being treated as a 'docs' format instead of an .apk (likely incorrect link/filename or missing APK asset at the download URL).",
     "User reports the provided AAB download link (https://strager.icp0.io/downloads/app-release.aab) does not work (likely missing asset / not uploaded).",
-    "AAB build process encountered an 'AI service error' during rebuild attempts."
+    "AAB build process encountered an 'AI service error' during rebuild attempts.",
+    "User reports the Version 26 APK direct download link (https://strager.icp0.io/downloads/strager-marketplace-v26.apk) is not working (likely missing asset/404 or incorrect hosting path).",
+    "User reports the UI currently shows the name “Amazon” (unwanted third-party branding) and it should not appear anywhere in the app."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-sign-out-and-show-authentication-state-across-the-app-e-g-header-shows-sign-in-account",
@@ -492,6 +494,198 @@
         "REQ-61"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-apk-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-the-version-21-apk-filename-strager-marketplace-v21-apk-instead-of-the-current-default-strager-marketplace-v20-apk-so-the-page-generates-the-correct-version-21-apk-download-link-by-default",
+      "title": "Update the /apk-download page so that when no ?filename=... query parameter is provided it defaults to the Version 21 APK filename strager-marketplace-v21.apk (instead of the current default strager-marketplace-v20.apk), so the page generates the correct Version 21 APK download link by default.",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-user-visible-examples-and-developer-guidance-on-the-apk-download-page-that-hardcode-the-previous-default-apk-filename-so-they-consistently-reference-version-21-strager-marketplace-v21-apk-as-the-example-default-where-applicable",
+      "title": "Update all user-visible examples and developer guidance on the /apk-download page that hardcode the previous default APK filename so they consistently reference Version 21 (strager-marketplace-v21.apk) as the example/default where applicable.",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-documentation-at-frontend-public-downloads-readme-txt-so-the-documented-current-default-apk-filename-matches-version-21-strager-marketplace-v21-apk-and-all-example-default-links-align-with-v21",
+      "title": "Update developer-facing documentation at frontend/public/downloads/README.txt so the documented current default APK filename matches Version 21 (strager-marketplace-v21.apk) and all example default links align with v21.",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-aab-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-the-latest-release-aab-filename-for-version-22-use-a-versioned-default-like-app-release-v22-aab-instead-of-the-current-default-app-release-v19-aab-so-the-page-generates-the-correct-latest-aab-download-link-by-default",
+      "title": "Update the /aab-download page so that when no ?filename=... query parameter is provided it defaults to the latest release AAB filename for Version 22 (use a versioned default like app-release-v22.aab instead of the current default app-release-v19.aab), so the page generates the correct latest AAB download link by default.",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-static-download-documentation-at-frontend-public-downloads-readme-txt-so-the-documented-current-default-aab-filename-matches-version-22-app-release-v22-aab-and-all-example-default-links-align-with-v22",
+      "title": "Update developer-facing static download documentation at frontend/public/downloads/README.txt so the documented current default AAB filename matches Version 22 (app-release-v22.aab) and all example default links align with v22.",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-app-site-metadata-and-user-visible-branding-so-it-no-longer-hardcodes-marketplace-where-the-user-expects-home-including-header-logo-alt-text-and-footer-copyright-text",
+      "title": "Update app/site metadata and user-visible branding so it no longer hardcodes “Marketplace” where the user expects “Home”, including header logo alt text and footer copyright text.",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-app-s-url-origin-is-not-hardcoded-in-any-user-facing-guidance-or-link-generation-logic-all-generated-urls-must-be-based-on-the-runtime-site-origin-window-location-origin-with-a-sensible-ssr-fallback-and-no-placeholder-domains-shown-to-users",
+      "title": "Ensure the app’s URL/origin is not hardcoded in any user-facing guidance or link generation logic; all generated URLs must be based on the runtime site origin (window.location.origin) with a sensible SSR fallback and no placeholder domains shown to users.",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-home-entry-in-the-header-navigation-that-routes-to-and-ensure-it-is-the-primary-default-top-level-destination-replacing-any-marketplace-concept-in-navigation",
+      "title": "Add a visible “Home” entry in the header navigation that routes to “/”, and ensure it is the primary/default top-level destination replacing any “Marketplace” concept in navigation.",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-right-aligned-settings-entry-in-the-header-desktop-and-mobile-that-opens-a-right-side-menu-panel-containing-all-settings-help-legal-download-links-currently-scattered-in-the-ui-e-g-install-app-app-store-guide-download-apk-download-aab-privacy-policy-terms-support",
+      "title": "Create a right-aligned “Settings” entry in the header (desktop and mobile) that opens a right-side menu/panel containing all “settings/help/legal/download” links currently scattered in the UI (e.g., Install App, App Store Guide, Download APK, Download AAB, Privacy Policy, Terms, Support).",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-pwa-app-metadata-to-reflect-the-updated-branding-home-vs-marketplace-where-applicable-without-changing-routing-behavior-update-the-manifest-name-description-if-they-currently-emphasize-marketplace-in-a-way-that-conflicts-with-the-new-home-navigation-label",
+      "title": "Update PWA/app metadata to reflect the updated branding (Home vs Marketplace) where applicable, without changing routing behavior: update the manifest name/description if they currently emphasize “Marketplace” in a way that conflicts with the new “Home” navigation label.",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-settings-menu-to-open-from-the-left-side-of-the-screen-left-side-sheet-panel-so-that-all-settings-items-appear-in-a-left-side-menu-instead-of-the-current-right-side-panel",
+      "title": "Update the Settings menu to open from the left side of the screen (left-side sheet/panel) so that all Settings items appear in a left-side menu instead of the current right-side panel.",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-hide-the-app-installation-section-and-its-links-such-as-install-app-app-store-guide-download-apk-download-aab-for-users-who-are-currently-in-the-profile-creation-setup-required-state-i-e-authenticated-but-caller-user-profile-is-not-created-yet-the-legal-support-section-must-remain-visible",
+      "title": "Hide the “App Installation” section (and its links such as “Install App”, “App Store Guide”, “Download APK”, “Download AAB”) for users who are currently in the “profile creation/setup required” state (i.e., authenticated but caller user profile is not created yet). The “Legal & Support” section must remain visible.",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-profile-setup-first-time-profile-creation-ui-and-copy-more-professional-and-consistent-with-the-app-branding-by-removing-marketplace-phrasing-and-using-clearer-more-formal-english-microcopy-and-labels",
+      "title": "Make the Profile setup (first-time profile creation) UI and copy more professional and consistent with the app branding by removing “Marketplace” phrasing and using clearer, more formal English microcopy and labels.",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-first-time-profile-setup-profile-creation-dialog-more-professional-and-consistent-with-strager-branding-by-updating-english-microcopy-labels-and-improving-the-dialog-s-layout-typography-while-keeping-the-same-required-fields-and-behavior",
+      "title": "Make the first-time Profile setup (profile creation dialog) more professional and consistent with Strager branding by updating English microcopy/labels and improving the dialog’s layout/typography while keeping the same required fields and behavior.",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-mobile-header-layout-to-match-the-structure-shown-in-the-uploaded-screenshot-a-compact-top-bar-menu-button-strager-logo-followed-by-a-full-width-search-bar-with-a-prominent-right-side-search-action-and-quick-access-actions-for-account-sign-in-profile-and-cart-with-item-count",
+      "title": "Update the mobile header layout to match the structure shown in the uploaded screenshot: a compact top bar (menu button + Strager logo), followed by a full-width search bar with a prominent right-side search action, and quick access actions for Account (sign-in/profile) and Cart with item count.",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-mobile-only-secondary-navigation-row-under-the-search-bar-that-displays-three-quick-links-similar-to-the-screenshot-e-g-shop-by-category-deals-sell-with-sensible-routing-within-the-existing-app",
+      "title": "Add a mobile-only secondary navigation row under the search bar that displays three quick links similar to the screenshot (e.g., “Shop by Category”, “Deals”, “Sell”), with sensible routing within the existing app.",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-page-layout-to-include-a-delivery-location-info-strip-under-the-header-as-shown-in-the-screenshot-using-a-simple-non-gps-ui-no-real-location-detection-with-an-update-location-affordance",
+      "title": "Update the Home page layout to include a delivery/location info strip under the header (as shown in the screenshot), using a simple non-GPS UI (no real location detection) with an “Update location” affordance.",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-home-page-hero-section-with-a-mobile-first-promotional-banner-carousel-similar-to-the-uploaded-screenshot-large-rounded-promo-cards-with-bold-headline-text-and-keep-it-responsive-for-desktop",
+      "title": "Replace the current Home page hero section with a mobile-first promotional banner carousel similar to the uploaded screenshot (large rounded promo cards with bold headline text), and keep it responsive for desktop.",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-home-page-quick-benefits-row-under-the-promo-area-showing-3-4-compact-icon-label-items-similar-to-the-screenshot-e-g-free-delivery-secure-payments-coupons-easy-returns",
+      "title": "Add a Home page quick-benefits row under the promo area, showing 3–4 compact icon+label items similar to the screenshot (e.g., “Free Delivery”, “Secure Payments”, “Coupons”, “Easy Returns”).",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-updated-layout-integrates-cleanly-with-existing-pages-and-navigation-the-header-remains-sticky-does-not-overlap-content-and-does-not-break-desktop-navigation-already-present-in-the-existing-header-component",
+      "title": "Ensure the updated layout integrates cleanly with existing pages and navigation: the header remains sticky, does not overlap content, and does not break desktop navigation already present in the existing Header component.",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-new-static-promo-banner-images-under-frontend-public-assets-generated-and-wire-them-into-the-new-home-page-promo-carousel",
+      "title": "Add the required new static promo/banner images under frontend/public/assets/generated and wire them into the new Home page promo carousel.",
+      "reqIds": [
+        "REQ-86"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-third-party-brand-name-amazon-from-the-mobile-header-search-ui-and-replace-it-with-strager-appropriate-generic-english-placeholder-text",
+      "title": "Remove the third-party brand name “Amazon” from the mobile header search UI and replace it with Strager-appropriate, generic English placeholder text.",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-the-frontend-for-any-remaining-occurrences-of-third-party-marketplace-branding-e-g-amazon-amazon-amazon-in-in-user-facing-text-and-remove-replace-them-with-strager-branding-or-neutral-english-copy",
+      "title": "Audit the frontend for any remaining occurrences of third-party marketplace branding (e.g., “Amazon”, “amazon”, “Amazon.in”) in user-facing text and remove/replace them with Strager branding or neutral English copy.",
+      "reqIds": [
+        "REQ-88"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-clearly-labeled-buy-entry-point-in-the-main-navigation-so-users-can-easily-access-the-shopping-browsing-experience-route-to-products-and-ensure-it-is-visible-for-both-authenticated-and-unauthenticated-users-on-desktop-and-mobile",
+      "title": "Add a clearly labeled “Buy” entry point in the main navigation so users can easily access the shopping/browsing experience (route to /products), and ensure it is visible for both authenticated and unauthenticated users on desktop and mobile.",
+      "reqIds": [
+        "REQ-89"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -546,6 +740,98 @@
       "summary": "Convert/package the Strager Android build into a Play Store–ready AAB (Android App Bundle) for upload to Google Play Console.",
       "reqIds": [],
       "status": "in_progress"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Generate an APK download link for Strager draft/production Version 21.",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Generate an AAB download link for the latest Strager release (Version 22).",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add a seller commission/earning model: apply 5% commission on each seller sale (admin earning) with net payout to seller.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Change/update the site and app URL (deployment/app origin/domain) to a new URL requested by the user.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Update the app navigation so the 'Home' tab shows instead of 'Marketplace' (replace/rename default tab to Home).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Hide the “Installation/Install App” section for users who are creating/editing their profile (do not show install guidance in the profile creation flow).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Make the Profile section more professional (improve layout/typography/content presentation of the profile area).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Move all Settings to the left side of the app UI (left-aligned / left-side menu or panel) instead of right-side.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Ensure the top navigation uses “Home” as the primary label and does not show “Marketplace” where a user expects “Home” in the header navigation experience.",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Ensure the header navigation uses “Home” as the primary label (instead of any “Marketplace” wording) across both desktop and mobile navigation entries, and routes to “/”.",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Move the Settings menu sheet/panel to open from the left side of the screen on both desktop and mobile, and keep Settings as a single consolidated entry point for installation, guidance, download, legal, and support links.",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Hide the “App Installation” section (and its links such as “Install App”, “App Store Guide”, “Download APK”, “Download AAB”) for users who are authenticated but have not completed initial profile creation yet; the “Legal & Support” section must remain visible in Settings.",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Generate a working APK download link for Strager Version 26 (and ensure the APK file is actually available under /downloads).",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Remove any third-party app names/branding (e.g., “Amazon”) from Strager UI/copy and ensure only Strager branding appears throughout the app.",
+      "reqIds": [],
+      "status": "pending"
     }
   ],
   "gameProjectType": "none",

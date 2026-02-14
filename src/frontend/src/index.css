@@ -77,4 +77,13 @@
     .page-section {
         @apply py-8 md:py-12;
     }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
 }
