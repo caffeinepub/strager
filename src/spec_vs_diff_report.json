@@ -1,0 +1,32 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T12:47:02.604Z",
+  "summary": "REQ-37 appears implemented via a new callout on the Install page linking users to /mobile-app-packaging for APK creation. The diff excerpt does not provide clear evidence that REQ-35 (explicit “Build an APK (Android)” step-by-step section with APK vs AAB explanation and use of the displayed deployment origin) or REQ-36 (TWA prerequisite subsection referencing assetlinks.json placeholders and assetlinks.README.txt) were added to /mobile-app-packaging.",
+  "missing_requirements": [
+    {
+      "id": "REQ-35",
+      "requirement": "Update /mobile-app-packaging to include a clearly labeled, step-by-step “Build an APK (Android)” section that explains APK vs AAB, provides a sequential checklist using Android Studio WebView wrapper and/or TWA, and references the deployed site origin shown on the page as the start URL.",
+      "reason": "The provided diff excerpt for MobileAppPackagingGuidePage.tsx only shows the page header and a general “Important Note” about external tooling; it does not show an explicit “Build an APK (Android)” section, the APK vs AAB explanation, a sequential checklist, or a reference to the displayed deployment origin as the packaging start URL. Because the file content is truncated, this cannot be verified from the evidence provided.",
+      "evidence": [
+        "frontend/src/pages/MobileAppPackagingGuidePage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-36",
+      "requirement": "Add a “Trusted Web Activity (TWA) prerequisite” subsection that references frontend/public/.well-known/assetlinks.json, instructs replacing PACKAGE_NAME_HERE and SHA256_FINGERPRINT_HERE, and points to frontend/public/.well-known/assetlinks.README.txt for how to obtain values; wording must state external tooling is required.",
+      "reason": "No portion of the shown diff excerpt includes references to assetlinks.json, the placeholders PACKAGE_NAME_HERE / SHA256_FINGERPRINT_HERE, or a pointer/link to assetlinks.README.txt. With the file truncated, this requirement cannot be confirmed as implemented based on the provided evidence.",
+      "evidence": [
+        "frontend/src/pages/MobileAppPackagingGuidePage.tsx (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [],
+  "confidence": 0.63,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/InstallAppPage.tsx",
+    "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+    "project_state.json"
+  ]
+}

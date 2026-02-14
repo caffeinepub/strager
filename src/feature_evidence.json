@@ -1,0 +1,62 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-existing-package-as-mobile-app-guide-page-to-include-an-explicit-step-by-step-section-focused-on-producing-an-installable-android-apk-for-testing-and-an-aab-for-play-store-written-in-english-and-tailored-to-this-strager-deployment-url-shown-on-the-page",
+      "featureTitle": "Update the existing “Package as Mobile App” guide page to include an explicit, step-by-step section focused on producing an installable Android APK for testing (and an AAB for Play Store), written in English and tailored to this Strager deployment URL shown on the page.",
+      "files": [
+        "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-35"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-trusted-web-activity-twa-prerequisite-subsection-in-the-android-wrapper-guidance-that-points-users-to-the-existing-digital-asset-links-files-in-the-repo-and-explains-in-english-that-they-must-replace-placeholders-before-twa-verification-will-work",
+      "featureTitle": "Add a “Trusted Web Activity (TWA) prerequisite” subsection in the Android wrapper guidance that points users to the existing Digital Asset Links files in the repo and explains, in English, that they must replace placeholders before TWA verification will work.",
+      "files": [
+        "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-36"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-install-strager-app-page-includes-a-clear-callout-that-users-who-specifically-want-an-apk-for-installation-testing-should-follow-the-package-as-mobile-app-guide-english-text",
+      "featureTitle": "Ensure the “Install Strager App” page includes a clear callout that users who specifically want an APK for installation/testing should follow the “Package as Mobile App” guide (English text).",
+      "files": [
+        "frontend/src/pages/InstallAppPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-37"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

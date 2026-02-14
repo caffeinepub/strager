@@ -1,0 +1,61 @@
+{
+  "name": "Strager Marketplace",
+  "short_name": "Strager",
+  "description": "Your online marketplace for buying and selling products",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b35",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/generated/app-icon-s.dim_192x192.png?v=7",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/generated/app-icon-s.dim_512x512.png?v=7",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/generated/app-icon-s-maskable.dim_512x512.png?v=7",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["shopping", "marketplace"],
+  "screenshots": [
+    {
+      "src": "/assets/generated/play-store-screenshot-1.dim_1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Browse products"
+    },
+    {
+      "src": "/assets/generated/play-store-screenshot-2.dim_1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Product details"
+    },
+    {
+      "src": "/assets/generated/play-store-screenshot-3.dim_1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Shopping cart"
+    },
+    {
+      "src": "/assets/generated/play-store-screenshot-4.dim_1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Seller dashboard"
+    }
+  ]
+}

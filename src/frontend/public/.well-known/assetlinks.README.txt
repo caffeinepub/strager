@@ -1,0 +1,78 @@
+Digital Asset Links Configuration for Trusted Web Activity (TWA)
+=================================================================
+
+This file explains how to configure the assetlinks.json file for your Android TWA app.
+
+WHAT IS THIS?
+-------------
+Digital Asset Links verify that your Android app and website are owned by the same entity.
+This is required for Trusted Web Activity (TWA) apps to work properly on Android.
+
+REQUIRED STEPS:
+---------------
+
+1. OBTAIN YOUR ANDROID PACKAGE NAME
+   - This is the unique identifier for your Android app (e.g., com.strager.marketplace)
+   - You define this when creating your Android project in Android Studio or your wrapper tool
+   - It should match your domain in reverse notation (e.g., com.yourdomain.appname)
+
+2. OBTAIN YOUR SHA-256 CERTIFICATE FINGERPRINT
+   - This is a unique identifier for your app's signing certificate
+   
+   Option A - From Play Console (Recommended):
+   - Go to Google Play Console → Your App → Setup → App Integrity
+   - Find "App signing key certificate" section
+   - Copy the SHA-256 certificate fingerprint (64 hex characters with colons)
+   
+   Option B - From your signing keystore:
+   - If you have your signing keystore file, run this command:
+     keytool -list -v -keystore your-keystore-file.jks -alias your-key-alias
+   - Look for "SHA256:" in the output
+   - Copy the fingerprint (format: AA:BB:CC:DD:EE:FF:...)
+
+3. UPDATE THE assetlinks.json FILE
+   - Open: frontend/public/.well-known/assetlinks.json
+   - Replace "PACKAGE_NAME_HERE" with your actual package name
+   - Replace "SHA256_FINGERPRINT_HERE" with your actual SHA-256 fingerprint
+   
+   Example:
+   {
+     "relation": ["delegate_permission/common.handle_all_urls"],
+     "target": {
+       "namespace": "android_app",
+       "package_name": "com.strager.marketplace",
+       "sha256_cert_fingerprints": [
+         "14:6D:E9:83:C5:73:06:50:D8:EE:B9:95:2F:34:FC:64:16:A0:83:42:E6:1D:BE:A8:8A:04:96:B2:3F:CF:44:E5"
+       ]
+     }
+   }
+
+4. DEPLOY YOUR WEBSITE
+   - After updating assetlinks.json, deploy your website
+   - The file must be accessible at: https://your-domain.com/.well-known/assetlinks.json
+   - Verify it's publicly accessible by visiting the URL in a browser
+
+5. VERIFY YOUR CONFIGURATION
+   - Use Google's Digital Asset Links tester:
+     https://developers.google.com/digital-asset-links/tools/generator
+   - Enter your domain and package name
+   - Confirm that the verification passes
+
+IMPORTANT NOTES:
+----------------
+- The assetlinks.json file must be served with Content-Type: application/json
+- The file must be accessible via HTTPS (not HTTP)
+- Do not add extra whitespace or comments to the JSON file
+- If you regenerate your signing key, you must update the fingerprint
+- You can have multiple fingerprints in the array (useful for debug and release builds)
+
+TROUBLESHOOTING:
+----------------
+- If TWA doesn't work, verify the file is accessible at /.well-known/assetlinks.json
+- Check that the package name exactly matches your Android app's package name
+- Ensure the SHA-256 fingerprint matches your app's signing certificate
+- Use the Digital Asset Links tester to diagnose issues
+- Clear your Android app's data and reinstall if changes don't take effect
+
+For more information, visit:
+https://developers.google.com/digital-asset-links/v1/getting-started

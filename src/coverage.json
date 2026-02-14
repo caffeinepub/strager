@@ -1,0 +1,60 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T12:47:02.608Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-35",
+        "summary": "Update the existing “Package as Mobile App” guide page to include an explicit, step-by-step section focused on producing an installable Android APK for testing (and an AAB for Play Store), written in English and tailored to this Strager deployment URL shown on the page.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-36",
+        "summary": "Add a “Trusted Web Activity (TWA) prerequisite” subsection in the Android wrapper guidance that points users to the existing Digital Asset Links files in the repo and explains, in English, that they must replace placeholders before TWA verification will work.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-37",
+        "summary": "Ensure the “Install Strager App” page includes a clear callout that users who specifically want an APK for installation/testing should follow the “Package as Mobile App” guide (English text).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/InstallAppPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/InstallAppPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/pages/InstallAppPage.tsx",
+    "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

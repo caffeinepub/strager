@@ -1,0 +1,347 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 23,
+  "summary": "Build an e-commerce marketplace app similar to Meesho/Amazon, and support packaging the website into a mobile app.",
+  "architectural_notes": [
+    "Deployment/app domain names must be 5–50 characters and contain only letters, numbers, and hyphens.",
+    "User confirmed they want a Play Store–style mobile app package (Android wrapper/WebView) built from the existing website/PWA.",
+    "User confirmed they want to move the current build toward a Play Store–ready version (Android wrapper/TWA/WebView packaging path).",
+    "User requested help making an APK of the app (Android packaging/build output)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-sign-out-and-show-authentication-state-across-the-app-e-g-header-shows-sign-in-account",
+      "title": "Implement Internet Identity sign-in/sign-out and show authentication state across the app (e.g., header shows Sign in / Account).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-buyer-browsing-experience-home-page-with-featured-sections-category-browsing-product-grid-listing-search-and-basic-filters-category-price-range-and-product-detail-page-with-add-to-cart",
+      "title": "Build the buyer browsing experience: home page with featured sections, category browsing, product grid listing, search and basic filters (category + price range), and product detail page with add-to-cart.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-cart-and-checkout-flow-cart-page-with-quantity-updates-removal-order-summary-and-a-checkout-form-shipping-address-fields-that-creates-an-order-in-the-backend-no-external-payments",
+      "title": "Implement cart and checkout flow: cart page with quantity updates/removal, order summary, and a checkout form (shipping address fields) that creates an order in the backend (no external payments).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-account-area-with-order-history-and-order-details-for-the-signed-in-buyer",
+      "title": "Add account area with order history and order details for the signed-in buyer.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-minimal-seller-flow-a-seller-dashboard-where-a-signed-in-user-can-create-edit-and-deactivate-their-own-product-listings-including-selecting-from-predefined-categories-and-choosing-from-provided-static-images",
+      "title": "Add a minimal seller flow: a 'Seller Dashboard' where a signed-in user can create, edit, and deactivate their own product listings (including selecting from predefined categories and choosing from provided static images).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-coherent-distinctive-visual-theme-for-the-marketplace-ui-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-pages-header-navigation-cards-buttons-forms-avoid-blue-purple-as-primary-colors",
+      "title": "Create a coherent, distinctive visual theme for the marketplace UI (colors, typography, spacing, and component styling) and apply it consistently across pages (header, navigation, cards, buttons, forms). Avoid blue/purple as primary colors.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-static-generated-images-under-frontend-public-assets-generated-and-use-them-in-the-ui-logo-hero-banner-and-category-icons",
+      "title": "Add static generated images under frontend/public/assets/generated and use them in the UI (logo, hero banner, and category icons).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-new-static-app-icon-image-featuring-a-single-capital-letter-s-and-add-it-to-the-project-under-frontend-public-assets-generated",
+      "title": "Generate a new static app icon image featuring a single capital letter \"S\" and add it to the project under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-web-app-html-to-reference-the-new-s-icon-as-the-site-favicon-and-apple-touch-icon-if-applicable-using-the-static-asset-path",
+      "title": "Update the web app HTML to reference the new \"S\" icon as the site favicon (and apple-touch-icon if applicable) using the static asset path.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-generated-app-icon-image-file-exists-at-frontend-public-assets-generated-app-icon-s-dim-512x512-png-and-is-served-correctly-as-a-static-asset",
+      "title": "Ensure the generated app icon image file exists at frontend/public/assets/generated/app-icon-s.dim_512x512.png and is served correctly as a static asset.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-progressive-web-app-pwa-support-so-the-existing-website-can-be-installed-on-android-ios-as-an-app-home-screen-app-launcher-using-a-web-app-manifest-and-the-existing-static-app-icon-assets",
+      "title": "Add Progressive Web App (PWA) support so the existing website can be installed on Android/iOS as an app (home screen / app launcher), using a Web App Manifest and the existing static app icon assets.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-register-a-service-worker-to-enable-offline-capable-app-shell-behavior-for-the-pwa-cache-core-static-assets-and-show-a-simple-offline-fallback-for-navigation-requests-when-the-network-is-unavailable",
+      "title": "Register a service worker to enable offline-capable app-shell behavior for the PWA (cache core static assets and show a simple offline fallback for navigation requests when the network is unavailable).",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-simple-in-app-guidance-screen-or-modal-with-english-instructions-explaining-how-to-install-the-app-on-android-chrome-and-iphone-safari-accessible-from-the-ui-e-g-footer-link-or-header-menu",
+      "title": "Add a simple in-app guidance screen (or modal) with English instructions explaining how to install the app on Android (Chrome) and iPhone (Safari), accessible from the UI (e.g., footer link or header menu).",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-strager-web-app-works-as-an-installable-pwa-on-android-chrome-and-ios-safari-with-the-correct-app-icon-manifest-metadata-install-guidance-route-and-offline-fallback-behavior",
+      "title": "Ensure the Strager web app works as an installable PWA on Android (Chrome) and iOS (Safari), with the correct app icon, manifest metadata, install guidance route, and offline fallback behavior.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-strager-pwa-app-icon-and-favicon-reliably-update-after-deployments-by-forcing-clients-to-pick-up-the-latest-cached-icon-assets-e-g-update-the-service-worker-cache-versioning-cleanup-strategy-so-stale-icon-assets-are-not-served",
+      "title": "Ensure the Strager PWA/app icon and favicon reliably update after deployments by forcing clients to pick up the latest cached icon assets (e.g., update the service worker cache versioning/cleanup strategy so stale icon assets are not served).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-english-troubleshooting-note-to-the-in-app-installation-guidance-explaining-what-to-do-if-the-installed-app-icon-or-favicon-does-not-update-e-g-hard-refresh-clear-site-data-uninstall-reinstall-the-pwa-with-steps-for-android-chrome-and-iphone-safari",
+      "title": "Add an English troubleshooting note to the in-app installation guidance explaining what to do if the installed app icon or favicon does not update (e.g., hard refresh/clear site data/uninstall & reinstall the PWA), with steps for Android (Chrome) and iPhone (Safari).",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-user-accessible-page-that-explains-in-english-how-to-convert-the-existing-strager-website-into-a-publishable-mobile-app-using-an-android-ios-wrapper-approach-as-distinct-from-the-existing-pwa-install-instructions-the-page-must-clearly-present-1-pwa-install-option-already-supported-2-android-wrapper-app-option-suitable-for-google-play-e-g-trusted-web-activity-or-webview-wrapper-and-3-ios-wrapper-app-option-suitable-for-the-app-store-e-g-wkwebview-wrapper",
+      "title": "Add a new user-accessible page that explains, in English, how to convert the existing Strager website into a publishable mobile app using an Android/iOS wrapper approach (as distinct from the existing PWA install instructions). The page must clearly present: (1) PWA install option (already supported), (2) Android wrapper app option suitable for Google Play (e.g., Trusted Web Activity or WebView wrapper), and (3) iOS wrapper app option suitable for the App Store (e.g., WKWebView wrapper).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expose-navigation-to-the-new-mobile-app-packaging-guidance-page-from-the-existing-ui-so-users-can-find-it-easily-at-minimum-from-the-existing-install-app-area-and-optionally-from-the-header-or-footer",
+      "title": "Expose navigation to the new 'mobile app packaging' guidance page from the existing UI so users can find it easily (at minimum from the existing Install App area, and optionally from the header or footer).",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-wrapper-app-packaging-guidance-page-document-in-english-the-exact-app-icon-and-pwa-metadata-assets-already-present-in-the-project-so-the-user-knows-what-to-reuse-for-store-listings-e-g-manifest-icon-files-under-assets-generated-and-the-site-name-short-name",
+      "title": "On the wrapper-app packaging guidance page, document (in English) the exact app icon and PWA metadata assets already present in the project so the user knows what to reuse for store listings (e.g., manifest icon files under /assets/generated and the site name/short name).",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-accessible-privacy-policy-page-with-english-text-suitable-for-play-store-submission-and-make-it-reachable-from-the-main-ui-at-minimum-via-the-global-footer",
+      "title": "Add a user-accessible Privacy Policy page with English text suitable for Play Store submission, and make it reachable from the main UI (at minimum via the global footer).",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-accessible-terms-of-service-page-with-english-text-and-make-it-reachable-from-the-main-ui-at-minimum-via-the-global-footer",
+      "title": "Add a user-accessible Terms of Service page with English text, and make it reachable from the main UI (at minimum via the global footer).",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-accessible-support-contact-page-in-english-that-can-be-used-as-the-play-store-support-url-and-make-it-reachable-from-the-main-ui-at-minimum-via-the-global-footer",
+      "title": "Add a user-accessible Support/Contact page in English that can be used as the Play Store ‘support URL’, and make it reachable from the main UI (at minimum via the global footer).",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-the-existing-package-as-mobile-app-guidance-page-to-include-a-play-store-submission-checklist-section-that-references-the-app-s-in-site-privacy-policy-url-terms-url-and-support-url-all-english-and-calls-out-the-need-for-store-screenshots-and-feature-graphic-assets",
+      "title": "Extend the existing ‘Package as Mobile App’ guidance page to include a Play Store submission checklist section that references the app’s in-site Privacy Policy URL, Terms URL, and Support URL (all English) and calls out the need for store screenshots and feature graphic assets.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-static-digital-asset-links-file-at-frontend-public-well-known-assetlinks-json-for-android-trusted-web-activity-twa-support-with-clearly-marked-placeholders-and-english-comments-instructions-for-replacing-values-during-play-store-packaging",
+      "title": "Add a static Digital Asset Links file at frontend/public/.well-known/assetlinks.json for Android Trusted Web Activity (TWA) support, with clearly marked placeholders and English comments/instructions for replacing values during Play Store packaging.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-play-store-listing-marketing-images-feature-graphic-at-least-4-phone-screenshots-as-static-assets-under-frontend-public-assets-generated-then-reference-them-in-the-pwa-manifest-screenshots-array-and-ensure-the-service-worker-precaches-them-or-otherwise-guarantees-they-are-available-offline-once-cached",
+      "title": "Generate Play Store listing marketing images (feature graphic + at least 4 phone screenshots) as static assets under frontend/public/assets/generated, then reference them in the PWA manifest screenshots array and ensure the service worker precaches them (or otherwise guarantees they are available offline once cached).",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-adding-new-store-listing-assets-and-updating-the-manifest-increment-the-cache-busting-versioning-consistently-across-frontend-index-html-frontend-public-manifest-webmanifest-and-frontend-public-sw-js-so-clients-pick-up-the-updated-manifest-icons-assets-after-deployment",
+      "title": "When adding new store-listing assets and updating the manifest, increment the cache-busting versioning consistently across frontend/index.html, frontend/public/manifest.webmanifest, and frontend/public/sw.js so clients pick up the updated manifest/icons/assets after deployment.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-accessible-play-store-listing-info-section-either-on-the-existing-mobile-app-packaging-page-or-as-a-clearly-linked-sub-section-within-it-that-provides-copy-paste-ready-play-store-metadata-in-english-including-app-name-short-description-full-description-app-category-content-rating-note-high-level-and-the-exact-in-app-urls-for-privacy-policy-terms-and-support-pages",
+      "title": "Add a user-accessible “Play Store Listing Info” section (either on the existing /mobile-app-packaging page or as a clearly linked sub-section within it) that provides copy/paste-ready Play Store metadata in English, including: app name, short description, full description, app category, content rating note (high-level), and the exact in-app URLs for Privacy Policy, Terms, and Support pages.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-android-trusted-web-activity-twa-readiness-guidance-by-making-the-placeholder-values-in-frontend-public-well-known-assetlinks-json-unmistakable-and-adding-an-adjacent-plain-text-instruction-file-e-g-frontend-public-well-known-assetlinks-readme-txt-that-explains-in-english-exactly-what-values-must-be-replaced-package-name-and-sha-256-certificate-fingerprint-and-where-to-obtain-them",
+      "title": "Improve Android Trusted Web Activity (TWA) readiness guidance by making the placeholder values in frontend/public/.well-known/assetlinks.json unmistakable and adding an adjacent plain-text instruction file (e.g., frontend/public/.well-known/assetlinks.README.txt) that explains, in English, exactly what values must be replaced (package name and SHA-256 certificate fingerprint) and where to obtain them.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-final-pre-submission-checklist-section-to-the-existing-mobile-app-packaging-guidance-that-confirms-the-current-pwa-manifest-service-worker-cache-busting-version-values-are-aligned-the-v-values-in-frontend-index-html-and-frontend-public-manifest-webmanifest-and-cache-version-in-frontend-public-sw-js-and-provides-a-single-english-instruction-increment-them-together-on-each-release",
+      "title": "Add a final “Pre-submission Checklist” section to the existing mobile app packaging guidance that confirms the current PWA manifest/service worker cache-busting version values are aligned (the ?v=… values in frontend/index.html and frontend/public/manifest.webmanifest, and CACHE_VERSION in frontend/public/sw.js) and provides a single English instruction: increment them together on each release.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-play-store-metadata-urls-shown-on-the-mobile-app-packaging-page-to-use-the-current-deployed-site-origin-instead-of-placeholder-domains-so-the-copied-urls-are-correct-for-the-active-deployment",
+      "title": "Update the Play Store metadata URLs shown on the /mobile-app-packaging page to use the current deployed site origin instead of placeholder domains, so the copied URLs are correct for the active deployment.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-mobile-app-packaging-page-styling-remains-consistent-with-the-app-s-non-blue-purple-visual-theme-by-removing-or-replacing-blue-accented-ui-styling-used-specifically-in-the-play-store-listing-info-section",
+      "title": "Ensure the /mobile-app-packaging page styling remains consistent with the app’s non-blue/purple visual theme by removing or replacing blue-accented UI styling used specifically in the “Play Store Listing Info” section.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-harden-the-copy-interactions-on-the-mobile-app-packaging-page-so-they-fail-gracefully-when-the-clipboard-api-is-unavailable-or-blocked-using-english-user-facing-feedback",
+      "title": "Harden the “Copy” interactions on the /mobile-app-packaging page so they fail gracefully when the Clipboard API is unavailable or blocked, using English user-facing feedback.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-package-as-mobile-app-guide-page-to-include-an-explicit-step-by-step-section-focused-on-producing-an-installable-android-apk-for-testing-and-an-aab-for-play-store-written-in-english-and-tailored-to-this-strager-deployment-url-shown-on-the-page",
+      "title": "Update the existing “Package as Mobile App” guide page to include an explicit, step-by-step section focused on producing an installable Android APK for testing (and an AAB for Play Store), written in English and tailored to this Strager deployment URL shown on the page.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-trusted-web-activity-twa-prerequisite-subsection-in-the-android-wrapper-guidance-that-points-users-to-the-existing-digital-asset-links-files-in-the-repo-and-explains-in-english-that-they-must-replace-placeholders-before-twa-verification-will-work",
+      "title": "Add a “Trusted Web Activity (TWA) prerequisite” subsection in the Android wrapper guidance that points users to the existing Digital Asset Links files in the repo and explains, in English, that they must replace placeholders before TWA verification will work.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-install-strager-app-page-includes-a-clear-callout-that-users-who-specifically-want-an-apk-for-installation-testing-should-follow-the-package-as-mobile-app-guide-english-text",
+      "title": "Ensure the “Install Strager App” page includes a clear callout that users who specifically want an APK for installation/testing should follow the “Package as Mobile App” guide (English text).",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create an e-commerce marketplace app similar to Meesho/Amazon (shopping/marketplace app).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create backend data models and APIs for an e-commerce marketplace: products, categories, product images (as URLs to frontend static assets), carts, orders, and user profiles (buyer/seller basics).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Create an app icon featuring the letter 'S' for the app (to use for APK/Play Store packaging).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Confirm frontend/index.html references /assets/generated/app-icon-s.dim_512x512.png for both the favicon and apple-touch-icon, and that browsers display the new icon after a hard refresh.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Help convert/package the existing website into a mobile app (e.g., Android/iOS wrapper or PWA installable app) so the site can be used as an app.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Prepare the current build for Google Play Store submission (Play Store–ready Android packaging/build and submission readiness).",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Build an Android APK for the current Strager web app (Android wrapper/TWA/WebView packaging) so it can be installed/tested.",
+      "reqIds": [],
+      "status": "in_progress"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Strager",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

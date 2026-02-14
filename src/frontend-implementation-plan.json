@@ -1,0 +1,55 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add explicit Android APK/AAB wrapper build instructions to existing docs pages",
+  "requirements": [
+    {
+      "id": "REQ-35",
+      "summary": "Expand the existing “Package as Mobile App” guide with a clearly labeled, step-by-step Android section for producing an APK (testing) and an AAB (Play Store), using the deployed Strager site origin shown on the page.",
+      "acceptanceCriteria": [
+        "On /mobile-app-packaging, there is a clearly labeled section such as “Build an APK (Android)”, separate from general Play Store submission guidance.",
+        "The section explains (in English) the difference between APK (local testing) and AAB (Play Store submission).",
+        "The section provides a sequential checklist a user can follow using common approaches already mentioned on the page (Android Studio WebView wrapper and/or Trusted Web Activity), without requiring any backend changes.",
+        "The guide references the current deployed site origin already displayed on the page as the website/start URL to package."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+          "operation": "modify",
+          "description": "Update the Android wrapper guidance to add a distinct, clearly labeled “Build an APK (Android)” section with an English, sequential checklist for generating a debug/release APK for local installation/testing, and a separate note/checklist for generating an AAB for Play Store submission. Ensure the instructions explicitly reference the already-displayed deployed site origin (from getSiteOrigin()) as the start URL/website URL to package, and keep wording clear that external Android tooling (e.g., Android Studio for WebView wrapper and/or TWA) is required and this project does not generate APK/AAB automatically."
+        }
+      ]
+    },
+    {
+      "id": "REQ-36",
+      "summary": "Add a “Trusted Web Activity (TWA) prerequisite” subsection that points to the existing Digital Asset Links files and explains placeholders must be replaced for verification.",
+      "acceptanceCriteria": [
+        "The Android wrapper guidance explicitly references frontend/public/.well-known/assetlinks.json and states that the values PACKAGE_NAME_HERE and SHA256_FINGERPRINT_HERE must be replaced.",
+        "The guide links or points users to the existing instruction file frontend/public/.well-known/assetlinks.README.txt for where to obtain the package name and SHA-256 fingerprint.",
+        "User-facing wording remains accurate to the app’s constraints (i.e., the project does not automatically generate APK/AAB files)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+          "operation": "modify",
+          "description": "Within the Android/TWA guidance, add a dedicated “Trusted Web Activity (TWA) prerequisite” subsection that explicitly references frontend/public/.well-known/assetlinks.json, calls out the PACKAGE_NAME_HERE and SHA256_FINGERPRINT_HERE placeholders that must be replaced, and points users to frontend/public/.well-known/assetlinks.README.txt for how to obtain the correct package name and SHA-256 fingerprint. Keep all text in English and avoid implying APK/AAB generation is automatic."
+        }
+      ]
+    },
+    {
+      "id": "REQ-37",
+      "summary": "Add a clear callout on the Install page directing users who want an APK to the existing packaging guide, while clarifying PWA install vs APK creation.",
+      "acceptanceCriteria": [
+        "/install includes a short, easy-to-notice line or callout clarifying: PWA install is available directly in the browser, but APK creation requires using the /mobile-app-packaging guide.",
+        "The callout links to /mobile-app-packaging and does not introduce any new routes."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/InstallAppPage.tsx",
+          "operation": "modify",
+          "description": "Enhance the existing top callout card linking to /mobile-app-packaging so it explicitly states (in English) that the steps on this page are for installing the PWA directly from the browser, and that users who specifically want an APK for installation/testing must follow the “Package as Mobile App” guide at /mobile-app-packaging. Keep it prominent and do not add new routes."
+        }
+      ]
+    }
+  ]
+}
