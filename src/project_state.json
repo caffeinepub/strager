@@ -1,14 +1,24 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 23,
+  "projectStateVersion": 43,
   "summary": "Build an e-commerce marketplace app similar to Meesho/Amazon, and support packaging the website into a mobile app.",
   "architectural_notes": [
     "Deployment/app domain names must be 5–50 characters and contain only letters, numbers, and hyphens.",
     "User confirmed they want a Play Store–style mobile app package (Android wrapper/WebView) built from the existing website/PWA.",
     "User confirmed they want to move the current build toward a Play Store–ready version (Android wrapper/TWA/WebView packaging path).",
-    "User requested help making an APK of the app (Android packaging/build output)."
+    "User requested help making an APK of the app (Android packaging/build output).",
+    "User confirmed they want the APK download link generated (proceed with APK build/output and hosting instructions).",
+    "APK downloads must serve a real .apk file from the /apk-download flow (correct filename/path) so Android recognizes it as an APK, not a generic document.",
+    "User requested converting the Android build into an AAB (Android App Bundle) for Google Play Store publishing; Play Store submission requires AAB (not APK).",
+    "AAB download links must serve a real .aab file from the /downloads path (the file must be present on the server) so the Google Play Console upload works.",
+    "User confirmed they want the AAB download link generated for app draft Version 18.",
+    "User requested generating an APK download link for draft/production Version 20."
   ],
-  "known_issues": [],
+  "known_issues": [
+    "User reports the downloaded file is being treated as a 'docs' format instead of an .apk (likely incorrect link/filename or missing APK asset at the download URL).",
+    "User reports the provided AAB download link (https://strager.icp0.io/downloads/app-release.aab) does not work (likely missing asset / not uploaded).",
+    "AAB build process encountered an 'AI service error' during rebuild attempts."
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
@@ -290,6 +300,198 @@
         "REQ-37"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-new-user-accessible-route-page-at-apk-download-that-explains-in-english-how-to-make-a-locally-built-android-apk-available-for-download-including-where-to-place-the-apk-in-the-repo-as-a-static-asset-what-url-it-will-be-served-from-after-deployment-how-users-can-install-it-on-android-enable-install-unknown-apps-and-basic-safety-notes-verify-filename-version-and-source",
+      "title": "Add a new user-accessible route/page at /apk-download that explains (in English) how to make a locally-built Android APK available for download, including: where to place the APK in the repo as a static asset, what URL it will be served from after deployment, how users can install it on Android (enable ‘Install unknown apps’), and basic safety notes (verify filename, version, and source).",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expose-navigation-to-the-new-apk-download-page-from-existing-mobile-app-guidance-ux-by-adding-a-prominent-link-button-on-the-package-as-mobile-app-page-and-adding-a-footer-link-labeled-download-apk",
+      "title": "Expose navigation to the new /apk-download page from existing mobile-app guidance UX, by adding a prominent link/button on the “Package as Mobile App” page and adding a footer link labeled “Download APK”.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-repo-local-static-downloads-folder-and-documentation-for-apk-hosting-by-creating-frontend-public-downloads-readme-txt-english-that-explains-what-file-to-place-there-e-g-app-release-apk-recommended-naming-conventions-and-how-to-update-replace-the-file-between-releases-without-confusing-users",
+      "title": "Add a repo-local static downloads folder and documentation for APK hosting by creating frontend/public/downloads/README.txt (English) that explains what file to place there (e.g., app-release.apk), recommended naming conventions, and how to update/replace the file between releases without confusing users.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-apk-download-page-to-generate-and-display-a-direct-copyable-apk-download-url-based-on-the-current-site-origin-and-provide-a-prominent-download-apk-button-that-links-to-that-url",
+      "title": "Update the existing /apk-download page to generate and display a direct, copyable APK download URL (based on the current site origin) and provide a prominent “Download APK” button that links to that URL.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-allow-the-apk-download-page-s-apk-filename-to-be-set-without-code-changes-by-supporting-a-url-parameter-for-the-filename-e-g-a-query-string-and-ensure-the-generated-link-updates-accordingly",
+      "title": "Allow the /apk-download page’s APK filename to be set without code changes by supporting a URL parameter for the filename (e.g., a query string), and ensure the generated link updates accordingly.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-developer-facing-instructions-including-the-downloads-folder-readme-to-reference-the-new-direct-download-link-behavior-and-the-supported-filename-parameter-using-english-text",
+      "title": "Update the developer-facing instructions (including the downloads folder README) to reference the new “direct download link” behavior and the supported filename parameter, using English text.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-apk-download-page-to-proactively-detect-when-the-generated-direct-apk-url-does-not-point-to-a-real-apk-file-e-g-missing-file-404-or-unexpected-content-type-and-show-a-clear-english-error-state-that-explains-the-likely-cause-apk-not-uploaded-to-frontend-public-downloads-or-filename-mismatch-and-how-to-fix-it",
+      "title": "Update the /apk-download page to proactively detect when the generated direct APK URL does not point to a real APK file (e.g., missing file/404 or unexpected Content-Type) and show a clear English error state that explains the likely cause (APK not uploaded to frontend/public/downloads/ or filename mismatch) and how to fix it.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-shareable-apk-download-page-link-section-on-apk-download-that-generates-and-displays-a-copyable-url-to-the-page-itself-using-the-current-site-origin-and-the-active-filename-parameter-e-g-apk-download-filename-include-an-english-hint-that-sharing-this-page-link-is-safer-than-sharing-an-unverified-direct-file-link",
+      "title": "Add a shareable “APK Download Page Link” section on /apk-download that generates and displays a copyable URL to the page itself using the current site origin and the active filename parameter (e.g., /apk-download?filename=...); include an English hint that sharing this page link is safer than sharing an unverified direct file link.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-package-as-mobile-app-guide-page-to-include-an-explicit-step-by-step-section-focused-on-producing-a-play-store-ready-android-app-bundle-aab-written-in-english-including-a-clear-statement-that-an-apk-cannot-be-directly-converted-into-an-aab-and-that-you-must-rebuild-the-wrapper-project-to-generate-an-aab",
+      "title": "Update the existing “Package as Mobile App” guide page to include an explicit, step-by-step section focused on producing a Play Store–ready Android App Bundle (AAB), written in English, including a clear statement that an APK cannot be directly converted into an AAB and that you must rebuild the wrapper project to generate an AAB.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-static-download-documentation-to-clearly-distinguish-apk-vs-aab-usage-keep-apk-hosting-instructions-for-direct-installation-and-add-an-english-note-that-aab-files-are-for-play-store-upload-not-direct-install-and-therefore-are-not-meant-to-be-distributed-via-the-downloads-apk-link-flow",
+      "title": "Update developer-facing static download documentation to clearly distinguish APK vs AAB usage: keep APK hosting instructions for direct installation, and add an English note that AAB files are for Play Store upload (not direct install) and therefore are not meant to be distributed via the /downloads/ APK link flow.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-user-accessible-page-at-route-aab-download-that-generates-a-direct-android-app-bundle-aab-download-url-based-on-the-current-site-origin-and-a-filename-query-parameter-similar-to-the-existing-apk-download-behavior",
+      "title": "Add a new user-accessible page at route /aab-download that generates a direct Android App Bundle (AAB) download URL based on the current site origin and a filename query parameter, similar to the existing /apk-download behavior.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-aab-url-validation-on-aab-download-so-the-ui-clearly-explains-when-the-generated-aab-link-does-not-work-because-the-file-is-missing-or-is-serving-the-wrong-content-type",
+      "title": "Implement AAB URL validation on /aab-download so the UI clearly explains when the generated AAB link does not work because the file is missing or is serving the wrong content type.",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expose-navigation-to-aab-download-from-the-existing-ui-so-users-can-find-the-aab-link-generator-easily",
+      "title": "Expose navigation to /aab-download from the existing UI so users can find the AAB link generator easily.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-developer-facing-documentation-in-the-repo-explaining-how-to-make-an-aab-file-available-at-a-working-url-under-downloads-emphasizing-that-the-aab-is-for-play-console-upload-not-direct-installation",
+      "title": "Add developer-facing documentation in the repo explaining how to make an AAB file available at a working URL under /downloads/, emphasizing that the AAB is for Play Console upload (not direct installation).",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-aab-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-a-version-17-aab-filename-use-a-versioned-default-like-app-release-v17-aab-instead-of-the-unversioned-app-release-aab",
+      "title": "Update the /aab-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 17 AAB filename (use a versioned default like app-release-v17.aab) instead of the unversioned app-release.aab.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-download-documentation-to-use-version-17-as-the-example-for-aab-hosting-link-generation-so-the-guidance-matches-the-new-default-aab-filename-shown-on-aab-download",
+      "title": "Update developer-facing download documentation to use Version 17 as the example for AAB hosting/link generation so the guidance matches the new default AAB filename shown on /aab-download.",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-aab-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-a-version-18-aab-filename-app-release-v18-aab-instead-of-app-release-v17-aab",
+      "title": "Update the /aab-download page so that when no filename query parameter is provided, it defaults to a Version 18 AAB filename (app-release-v18.aab) instead of app-release-v17.aab.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-user-facing-text-on-the-aab-download-page-that-references-the-current-default-aab-version-so-it-consistently-reflects-version-18-v18-and-app-release-v18-aab",
+      "title": "Update all user-facing text on the /aab-download page that references the 'current default' AAB version so it consistently reflects Version 18 (v18) and app-release-v18.aab.",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-static-download-documentation-under-frontend-public-downloads-readme-txt-so-the-documented-current-default-aab-filename-matches-version-18-app-release-v18-aab-and-all-example-default-links-align-with-v18",
+      "title": "Update developer-facing static download documentation under frontend/public/downloads/README.txt so the documented current default AAB filename matches Version 18 (app-release-v18.aab) and all example default links align with v18.",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-aab-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-a-version-19-aab-filename-app-release-v19-aab-instead-of-app-release-v18-aab-so-the-page-generates-the-correct-aab-download-link-by-default",
+      "title": "Update the /aab-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 19 AAB filename (app-release-v19.aab) instead of app-release-v18.aab, so the page generates the correct AAB download link by default.",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-user-facing-text-on-the-aab-download-page-that-references-the-current-default-aab-version-filename-so-it-consistently-reflects-version-19-v19-and-app-release-v19-aab",
+      "title": "Update all user-facing text on the /aab-download page that references the current default AAB version/filename so it consistently reflects Version 19 (v19) and app-release-v19.aab.",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-static-download-documentation-at-frontend-public-downloads-readme-txt-so-the-documented-current-default-aab-filename-matches-version-19-app-release-v19-aab-and-all-example-default-links-align-with-v19",
+      "title": "Update developer-facing static download documentation at frontend/public/downloads/README.txt so the documented current default AAB filename matches Version 19 (app-release-v19.aab) and all example default links align with v19.",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-apk-download-page-so-that-when-no-filename-query-parameter-is-provided-it-defaults-to-a-version-20-apk-filename-use-a-versioned-default-like-strager-marketplace-v20-apk-instead-of-the-current-default-strager-marketplace-v1-apk",
+      "title": "Update the /apk-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 20 APK filename (use a versioned default like strager-marketplace-v20.apk) instead of the current default strager-marketplace-v1.apk.",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-developer-facing-documentation-in-frontend-public-downloads-readme-txt-to-reflect-the-current-default-apk-filename-used-by-apk-download-version-20-and-ensure-all-example-apk-links-and-filenames-align-with-that-default",
+      "title": "Update developer-facing documentation in frontend/public/downloads/README.txt to reflect the current default APK filename used by /apk-download (Version 20), and ensure all example APK links and filenames align with that default.",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -336,6 +538,12 @@
     {
       "id": "AR-9",
       "summary": "Build an Android APK for the current Strager web app (Android wrapper/TWA/WebView packaging) so it can be installed/tested.",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Convert/package the Strager Android build into a Play Store–ready AAB (Android App Bundle) for upload to Google Play Console.",
       "reqIds": [],
       "status": "in_progress"
     }

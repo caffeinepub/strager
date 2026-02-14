@@ -14,6 +14,8 @@ import OrderDetailPage from './pages/OrderDetailPage';
 import SellerDashboardPage from './pages/SellerDashboardPage';
 import InstallAppPage from './pages/InstallAppPage';
 import MobileAppPackagingGuidePage from './pages/MobileAppPackagingGuidePage';
+import ApkDownloadPage from './pages/ApkDownloadPage';
+import AabDownloadPage from './pages/AabDownloadPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import SupportContactPage from './pages/SupportContactPage';
@@ -102,6 +104,18 @@ const mobileAppPackagingRoute = createRoute({
   component: MobileAppPackagingGuidePage,
 });
 
+const apkDownloadRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/apk-download',
+  component: ApkDownloadPage,
+});
+
+const aabDownloadRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/aab-download',
+  component: AabDownloadPage,
+});
+
 const privacyRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/privacy',
@@ -132,6 +146,8 @@ const routeTree = rootRoute.addChildren([
   sellerDashboardRoute,
   installAppRoute,
   mobileAppPackagingRoute,
+  apkDownloadRoute,
+  aabDownloadRoute,
   privacyRoute,
   termsRoute,
   supportRoute,

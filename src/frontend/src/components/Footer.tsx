@@ -1,4 +1,4 @@
-import { Heart, Smartphone, Package } from 'lucide-react';
+import { Heart, Smartphone, Package, Download, FileArchive } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
 export default function Footer() {
@@ -26,6 +26,22 @@ export default function Footer() {
             >
               <Package className="h-4 w-4" />
               App Store Guide
+            </Link>
+            <span className="text-muted-foreground/50">•</span>
+            <Link
+              to="/apk-download"
+              className="flex items-center gap-1.5 font-medium text-foreground hover:text-primary transition-colors"
+            >
+              <Download className="h-4 w-4" />
+              Download APK
+            </Link>
+            <span className="text-muted-foreground/50">•</span>
+            <Link
+              to="/aab-download"
+              className="flex items-center gap-1.5 font-medium text-foreground hover:text-primary transition-colors"
+            >
+              <FileArchive className="h-4 w-4" />
+              Download AAB
             </Link>
             <span className="text-muted-foreground/50">•</span>
             <Link

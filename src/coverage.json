@@ -1,46 +1,35 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T12:47:02.608Z",
+  "generatedAt": "2026-02-14T14:38:42.362Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-35",
-        "summary": "Update the existing “Package as Mobile App” guide page to include an explicit, step-by-step section focused on producing an installable Android APK for testing (and an AAB for Play Store), written in English and tailored to this Strager deployment URL shown on the page.",
+        "id": "REQ-60",
+        "summary": "Update the /apk-download page so that when no ?filename=... query parameter is provided, it defaults to a Version 20 APK filename (use a versioned default like strager-marketplace-v20.apk) instead of the current default strager-marketplace-v1.apk.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+          "frontend/src/pages/ApkDownloadPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+          "frontend/src/pages/ApkDownloadPage.tsx"
         ]
       },
       {
-        "id": "REQ-36",
-        "summary": "Add a “Trusted Web Activity (TWA) prerequisite” subsection in the Android wrapper guidance that points users to the existing Digital Asset Links files in the repo and explains, in English, that they must replace placeholders before TWA verification will work.",
+        "id": "REQ-61",
+        "summary": "Update developer-facing documentation in frontend/public/downloads/README.txt to reflect the current default APK filename used by /apk-download (Version 20), and ensure all example APK links and filenames align with that default.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
+          "frontend/public/downloads/README.txt"
         ],
         "matchedFiles": [
-          "frontend/src/pages/MobileAppPackagingGuidePage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-37",
-        "summary": "Ensure the “Install Strager App” page includes a clear callout that users who specifically want an APK for installation/testing should follow the “Package as Mobile App” guide (English text).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/InstallAppPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/InstallAppPage.tsx"
+          "frontend/public/downloads/README.txt"
         ]
       }
     ]
@@ -50,8 +39,8 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/InstallAppPage.tsx",
-    "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+    "frontend/public/downloads/README.txt",
+    "frontend/src/pages/ApkDownloadPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,53 +1,36 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add explicit Android APK/AAB wrapper build instructions to existing docs pages",
+  "title": "Update APK download default filename to v20 and align downloads README",
   "requirements": [
     {
-      "id": "REQ-35",
-      "summary": "Expand the existing “Package as Mobile App” guide with a clearly labeled, step-by-step Android section for producing an APK (testing) and an AAB (Play Store), using the deployed Strager site origin shown on the page.",
+      "id": "REQ-60",
+      "summary": "Change /apk-download to default to the Version 20 APK filename when no filename query parameter is provided, and ensure generated links use that default.",
       "acceptanceCriteria": [
-        "On /mobile-app-packaging, there is a clearly labeled section such as “Build an APK (Android)”, separate from general Play Store submission guidance.",
-        "The section explains (in English) the difference between APK (local testing) and AAB (Play Store submission).",
-        "The section provides a sequential checklist a user can follow using common approaches already mentioned on the page (Android Studio WebView wrapper and/or Trusted Web Activity), without requiring any backend changes.",
-        "The guide references the current deployed site origin already displayed on the page as the website/start URL to package."
+        "Navigating to /apk-download with no query parameters shows the default filename as strager-marketplace-v20.apk.",
+        "The generated direct download URL uses /downloads/strager-marketplace-v20.apk by default.",
+        "The generated shareable page link uses /apk-download?filename=strager-marketplace-v20.apk by default."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+          "path": "frontend/src/pages/ApkDownloadPage.tsx",
           "operation": "modify",
-          "description": "Update the Android wrapper guidance to add a distinct, clearly labeled “Build an APK (Android)” section with an English, sequential checklist for generating a debug/release APK for local installation/testing, and a separate note/checklist for generating an AAB for Play Store submission. Ensure the instructions explicitly reference the already-displayed deployed site origin (from getSiteOrigin()) as the start URL/website URL to package, and keep wording clear that external Android tooling (e.g., Android Studio for WebView wrapper and/or TWA) is required and this project does not generate APK/AAB automatically."
+          "description": "Update the no-query-parameter default APK filename from strager-marketplace-v1.apk to strager-marketplace-v20.apk, ensuring the rendered filename, direct download URL, and shareable page URL all reflect the v20 default. Also update any developer-instruction examples on the page that currently reference the v1 APK so they match the new default."
         }
       ]
     },
     {
-      "id": "REQ-36",
-      "summary": "Add a “Trusted Web Activity (TWA) prerequisite” subsection that points to the existing Digital Asset Links files and explains placeholders must be replaced for verification.",
+      "id": "REQ-61",
+      "summary": "Update developer documentation under frontend/public/downloads/README.txt to reflect the Version 20 default APK filename used by /apk-download and align examples.",
       "acceptanceCriteria": [
-        "The Android wrapper guidance explicitly references frontend/public/.well-known/assetlinks.json and states that the values PACKAGE_NAME_HERE and SHA256_FINGERPRINT_HERE must be replaced.",
-        "The guide links or points users to the existing instruction file frontend/public/.well-known/assetlinks.README.txt for where to obtain the package name and SHA-256 fingerprint.",
-        "User-facing wording remains accurate to the app’s constraints (i.e., the project does not automatically generate APK/AAB files)."
+        "frontend/public/downloads/README.txt includes Version 20 as the current default APK example (e.g., strager-marketplace-v20.apk).",
+        "Any README examples for /apk-download and direct /downloads/ links use strager-marketplace-v20.apk (unless explicitly describing historical examples)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/MobileAppPackagingGuidePage.tsx",
+          "path": "frontend/public/downloads/README.txt",
           "operation": "modify",
-          "description": "Within the Android/TWA guidance, add a dedicated “Trusted Web Activity (TWA) prerequisite” subsection that explicitly references frontend/public/.well-known/assetlinks.json, calls out the PACKAGE_NAME_HERE and SHA256_FINGERPRINT_HERE placeholders that must be replaced, and points users to frontend/public/.well-known/assetlinks.README.txt for how to obtain the correct package name and SHA-256 fingerprint. Keep all text in English and avoid implying APK/AAB generation is automatic."
-        }
-      ]
-    },
-    {
-      "id": "REQ-37",
-      "summary": "Add a clear callout on the Install page directing users who want an APK to the existing packaging guide, while clarifying PWA install vs APK creation.",
-      "acceptanceCriteria": [
-        "/install includes a short, easy-to-notice line or callout clarifying: PWA install is available directly in the browser, but APK creation requires using the /mobile-app-packaging guide.",
-        "The callout links to /mobile-app-packaging and does not introduce any new routes."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/InstallAppPage.tsx",
-          "operation": "modify",
-          "description": "Enhance the existing top callout card linking to /mobile-app-packaging so it explicitly states (in English) that the steps on this page are for installing the PWA directly from the browser, and that users who specifically want an APK for installation/testing must follow the “Package as Mobile App” guide at /mobile-app-packaging. Keep it prominent and do not add new routes."
+          "description": "Revise the README to reflect that the current default APK filename used by /apk-download is strager-marketplace-v20.apk, and update any /apk-download and /downloads/ examples that currently reference strager-marketplace-v1.apk to use strager-marketplace-v20.apk (unless intentionally documenting older versions)."
         }
       ]
     }
